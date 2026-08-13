@@ -1,7 +1,7 @@
 package BasicsAndFundamentals.dataTypes;
 
 public class dataTypesInJava {
-    public static void main(String[] args) {
+
         /*
          Data Types
          1. Primitive Data Types - Primitive Data types are the ones which store actual values and these data types
@@ -31,6 +31,7 @@ public class dataTypesInJava {
             f. object - objects are the implementation or also called instances of classes which include real world data
         */
 
+    public static void main(String[] args) {
 
     }
 }
