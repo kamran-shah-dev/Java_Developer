@@ -3,7 +3,7 @@
 | JBF-001 | 🟢         | Take three integers and determine the largest **without using `Math.max()`**. Handle equal values correctly.                                                              |
 | JBF-002 | 🟢         | Given an integer, determine whether it is positive/negative/zero, even/odd, and divisible by both 3 and 5.                                                                |
 | JBF-003 | 🟢         | Create a grade calculator: `90–100 A`, `80–89 B`, etc. Reject values outside `0–100`.                                                                                     |
-| JBF-004 | 🟡         | Given a year, determine whether it is a leap year. Make sure years such as **1900 and 2000** behave correctly.                                                            |
+| JBF-004 | 🟡         | Given a year, determine whether it is a leap year. Make sure years such as 1900 and 2000 behave correctly.                                                            |
 | JBF-005 | 🟡         | Take an integer and calculate its number of digits, sum of digits, reversed number and whether it is a palindrome.                                                        |
 | JBF-006 | 🟡         | Print every prime number between two user-provided numbers. Do not use libraries to determine primality.                                                                  |
 | JBF-007 | 🟡         | Build a calculator that continuously accepts operations `+ - * / %` until the user chooses Exit. Protect against division by zero.                                        |
