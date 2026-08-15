@@ -11,7 +11,7 @@ public class problem007 {
 
         Scanner input = new Scanner(System.in);
         System.out.println("*************** Simple Calculator ***************");
-        char choice = ' ';
+        char choice;
         while (true) {
             System.out.println("*************** Menu ***************");
             System.out.println("To exit enter 1");
