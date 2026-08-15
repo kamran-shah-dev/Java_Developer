@@ -1,4 +1,4 @@
-package BasicsAndFundamentals.Problems.Medium;
+package Basics.DataTypesAndOperators.Problems.Medium;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package BasicsAndFundamentals.dataTypes;
+package Basics.DataTypesAndOperators.dataTypes;
 
 public class primitiveDataTypes {
 

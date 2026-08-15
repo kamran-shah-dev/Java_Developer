@@ -1,4 +1,4 @@
-package BasicsAndFundamentals.Problems.Easy;
+package Basics.DataTypesAndOperators.Problems.Easy;
 
 import java.util.Scanner;
 

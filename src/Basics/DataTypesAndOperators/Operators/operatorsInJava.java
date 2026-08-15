@@ -1,4 +1,4 @@
-package BasicsAndFundamentals.Operators;
+package Basics.DataTypesAndOperators.Operators;
 
 public class operatorsInJava {
     /*
