@@ -19,14 +19,10 @@ public class problem0011 {
         int reverse = 0;
         while (number != 0) {
             int remainder = number % 10;
-            if (reverse != 0 && remainder ==0) {
-                reverse *= 10;
-            } else {
-                reverse = reverse * 10 + remainder;
-            }
+            reverse = reverse * 10 + remainder;
             number /= 10;
         }
 
-        System.out.println(reverse + ((reverse == temp) ? " is a palindrome." : " is not a palindrome"));
+        System.out.println(temp + ((reverse == temp) ? " : palindrome." : " : not a palindrome"));
     }
 }
