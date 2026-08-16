@@ -19,7 +19,16 @@ public class problem0010 {
         System.out.println("-*-*-*-*-*-*-      To Exit - 4      -*-*-*-*-*-*-");
 
         System.out.print("Enter Your Account Balance: ");
-        double Balance = input.nextDouble();
+        double balance;
+        while (true) {
+            double balanceEntered = input.nextInt();
+            if (balanceEntered >= 0) {
+                balance = balanceEntered;
+                break;
+            }
+            System.out.println("Initial Balance Cannot Be negative!!!!!");
+            System.out.print("Try Again: ");
+        }
 
         System.out.print("Choose an option -> Deposit (1) , Withdraw (2), Balance Inquiry (3) , Exit (4) : ");
         int choice = input.nextInt();
@@ -29,20 +38,29 @@ public class problem0010 {
                 case 1:
                     System.out.print("Enter the amount for deposit: ");
                     double depositAmount = input.nextDouble();
-                    Balance += depositAmount;
-                    System.out.println("Deposit Successful!!!!!!");
+                    if (depositAmount < 0) {
+                        System.out.println("Negative Amount!! Operation Failed.");
+                    } else {
+                        balance += depositAmount;
+                        System.out.println("Deposit Successful!!!!!!");
+                    }
                     break;
                 case 2:
                     System.out.print("Enter the amount for withdrawal: ");
                     double withdrawAmount = input.nextDouble();
-                    if (Balance < withdrawAmount) {
+                    if (balance < withdrawAmount) {
                         System.out.println("Insufficient Balance!!!!!");
                     } else {
-                        Balance -= withdrawAmount;
+                        if (withdrawAmount < 0) {
+                            System.out.println("Negative Amount!! Operation Failed.");
+                        } else {
+                            balance -= withdrawAmount;
+                            System.out.println("Withdrawal Successful!!!");
+                        }
                     }
                     break;
                 case 3:
-                    System.out.println("Your Account Balance is: " + Balance);
+                    System.out.println("Your Account Balance is: " + balance);
                     break;
                 default:
                     System.out.println("Invalid option!!!!");
