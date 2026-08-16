@@ -11,39 +11,38 @@ public class problem008 {
 
         // I am defining the criteria as, all counts initially are 0
         Scanner input = new Scanner(System.in);
-        int Minimum = 0, Maximum = 0, Count = 0, Sum = 0, Average = 0;
+        int minimum = 0, maximum = 0, count = 0, sum = 0;
 
         System.out.println("Enter random numbers to count their sum, average, min, max");
         int number = input.nextInt();
 
         if (number != -1) {
-            Minimum = Maximum = number;
+            minimum = maximum = number;
         }
 
         while (number != -1) {
-            Sum += number;
-            Count++;
+            sum += number;
+            count++;
 
-            if (number < Minimum) {
-                Minimum = number;
+            if (number < minimum) {
+                minimum = number;
             }
 
-            if (number > Maximum) {
-                Maximum = number;
+            if (number > maximum) {
+                maximum = number;
             }
 
             number = input.nextInt();
         }
 
-        System.out.println("Minimum of numbers is: " + Minimum);
-        System.out.println("Maximum of numbers is: " + Maximum);
-        System.out.println("Sum of numbers is: " + Sum);
-        System.out.println("Total number count: " + Count);
-
-        if (Count != 0) {
-            System.out.println("Average | Mean of numbers: " + (Sum / Count));
+        if (count != 0) {
+            System.out.println("Minimum of numbers is: " + minimum);
+            System.out.println("Maximum of numbers is: " + maximum);
+            System.out.println("Sum of numbers is: " + sum);
+            System.out.println("Total number count: " + count);
+            System.out.println("Average | Mean of numbers: " + ((double) sum / (double) count));
         } else {
-            System.out.println("Division by zero is not valid.");
+            System.out.println("No values exist.");
         }
 
     }
