@@ -55,7 +55,6 @@ public class problem007 {
                     } else {
                         System.out.println("Division by zero is invalid...");
                     }
-
                     break;
                 case '%':
                     System.out.print("Enter first number: ");
