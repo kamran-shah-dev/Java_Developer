@@ -1,65 +1,250 @@
 package Basics.DataTypesAndOperators.Operators;
 
 public class operatorsInJava {
-    /*
-     Operators in Java
-     1. Arithmetic Operators - used to perform basic mathematical operations on variables and values.
-        In the following examples int a = 10; and int b = 5;
-        a. +  (addition)       - adds two operands                         => a + b   // 15
-        b. -  (subtraction)    - subtracts right operand from left operand => a - b   // 5
-        c. *  (multiplication) - multiplies two operands                   => a * b   // 50
-        d. /  (division)       - divides left operand by right operand     => a / b   // 2
-        e. %  (modulus)        - returns the remainder of a division       => a % b   // 0
+    public static void main(String[] args) {
+        // Arithmetic Operators
+        /*
+            -> Enclosing code in {} creates a new local block scope.
+            -> Variables declared inside that block only exist until the closing }.
+            -> It combines multiple statements into a single logical unit.
+        */
 
-     2. Relational Operators - used to compare two values, they always return a boolean result (true/false).
-        In the following examples int a = 10; and int b = 5;
-        a. ==  (equal to)                 - checks if two values are equal         => a == b   // false
-        b. !=  (not equal to)             - checks if two values are not equal     => a != b   // true
-        c. >   (greater than)             - checks if left is greater than right   => a > b    // true
-        d. <   (less than)                - checks if left is less than right      => a < b    // false
-        e. >=  (greater than or equal to) - checks if left >= right                => a >= b   // true
-        f. <=  (less than or equal to)    - checks if left <= right                => a <= b   // false
+        System.out.println("--- Arithmetic Operators ---");
+        // Addition (+ operator)
+        {
+            int a = 6, b = 7;
+            int c = a + b;
+            System.out.println(a + " + " + b + " = " + c);
+        }
 
-     3. Logical Operators - used to combine multiple boolean expressions.
-        In the following examples boolean x = true; and boolean y = false;
-        a. &&  (logical AND) - true only if both expressions are true, uses short-circuit evaluation
-           => if (a > b && b < c) { ... }
-        b. ||  (logical OR)  - true if at least one expression is true, uses short-circuit evaluation
-           => if (a > b || b < c) { ... }
-        c. !   (logical NOT) - reverses/negates the boolean value of an expression
-           => if (!(a > b)) { ... }
+        // Subtraction (- operator)
+        {
+            int a = 6, b = 7;
+            int c = a - b;
+            System.out.println(a + " - " + b + " = " + c);
+        }
 
-     4. Assignment Operators - used to assign values to a variable, often combined with another operation.
-        a. =   (assign)              - assigns right operand to left variable      => a = 10
-        b. +=  (add and assign)      - adds right operand to variable and assigns  => a += 5
-        c. -=  (subtract and assign) - subtracts right operand and assigns         => a -= 2
-        d. *=  (multiply and assign) - multiplies right operand and assigns        => a *= 3
-        e. /=  (divide and assign)   - divides variable by right operand           => a /= 2
-        f. %=  (modulus and assign)  - takes modulus and assigns                   => a %= 4
+        // Multiplication (* operator)
+        {
+            int a = 6, b = 7;
+            int c = a * b;
+            System.out.println(a + " * " + b + " = " + c);
+        }
 
-     5. Unary Operators - operate on a single operand to manipulate data or perform calculations.
-        In the following example int a = 10;
-        a. +  (unary plus)    - indicates a positive value          => +a   // 10
-        b. -  (unary minus)   - negates the value of an operand     => -a   // -10
-        c. ++ (increment)     - increases the value of a variable by 1  => a++ or ++a
-        d. -- (decrement)     - decreases the value of a variable by 1  => a-- or --a
+        // Division (/ operator)
+        {
+            int a = 6, b = 2;
+            int c = a / b;
+            System.out.println(a + " / " + b + " = " + c);
+        }
 
-     6. Ternary Operator - a shorthand form of the if-else conditional statement, uses three operands.
-        Syntax: condition ? expression1 : expression2;
-        In the following example int a = 10; and int b = 20;
-        => int max = (a > b) ? a : b;   // assigns a if a > b, otherwise assigns b (result: 20)
+        // Modulo (Remainder) (% operator)
+        {
+            int a = 6, b = 7;
+            int c = a % b;
+            System.out.println(a + " % " + b + " = " + c);
+        }
 
-     7. Bitwise Operators - operate directly on the individual bits of integer types (byte, short, int, long).
-        In the following examples int a = 5; (0101 in binary) and int b = 3; (0011 in binary)
-        a. &  (bitwise AND) - sets each bit to 1 if both corresponding bits are 1  => a & b   // 1  (0001)
-        b. |  (bitwise OR)  - sets each bit to 1 if at least one bit is 1         => a | b   // 7  (0111)
-        c. ^  (bitwise XOR) - sets each bit to 1 if exactly one bit is 1         => a ^ b   // 6  (0110)
-        d. ~  (bitwise complement/NOT) - inverts all bits of the operand         => ~a      // -6
 
-     8. Shift Operators - shift the bits of a number left or right, effectively multiplying/dividing by powers of 2.
-        In the following example int a = 5; (0000 0101 in binary)
-        a. <<  (left shift)          - shifts bits left, fills with 0s on the right   => a << 1   // 10
-        b. >>  (signed right shift)  - shifts bits right, preserves the sign bit      => a >> 1   // 2
-        c. >>> (unsigned right shift)- shifts bits right, fills with 0s regardless of sign => a >>> 1  // 2
-    */
+        // --- 2. RELATIONAL OPERATORS ---
+
+        {
+            int a = 10;
+            int b = 5;
+            System.out.println("\n--- Relational Operators ---");
+
+            // a. Equal to (==)
+            boolean isEqual = (a == b); // Checks if 10 equals 5
+            System.out.println("a == b: " + isEqual); // Prints false
+
+            // b. Not equal to (!=)
+            boolean notEqual = (a != b); // Checks if 10 is not equal to 5
+            System.out.println("a != b: " + notEqual); // Prints true
+
+            // c. Greater than (>)
+            boolean isGreater = (a > b); // Checks if 10 is strictly greater than 5
+            System.out.println("a > b: " + isGreater); // Prints true
+
+            // d. Less than (<)
+            boolean isLess = (a < b); // Checks if 10 is strictly less than 5
+            System.out.println("a < b: " + isLess); // Prints false
+
+            // e. Greater than or equal to (>=)
+            boolean isGreaterOrEqual = (a >= b); // Checks if 10 is greater than or equal to 5
+            System.out.println("a >= b: " + isGreaterOrEqual); // Prints true
+
+            // f. Less than or equal to (<=)
+            boolean isLessOrEqual = (a <= b); // Checks if 10 is less than or equal to 5
+            System.out.println("a <= b: " + isLessOrEqual); // Prints false
+        }
+
+        // --- 3. LOGICAL OPERATORS ---
+        {
+            boolean x = true;
+            boolean y = false;
+            System.out.println("\n--- Logical Operators ---");
+
+            // a. Logical AND (&&)
+            // True only if both sides are true. Uses short-circuit (stops if first is false).
+            boolean andResult = (x && y); // true && false
+            System.out.println("x && y: " + andResult); // Prints false
+
+            // b. Logical OR (||)
+            // True if at least one side is true. Uses short-circuit (stops if first is true).
+            boolean orResult = (x || y); // true || false
+            System.out.println("x || y: " + orResult); // Prints true
+
+            // c. Logical NOT (!)
+            // Inverts the boolean value. Turns true to false, and false to true.
+            boolean notX = !x; // Inverts true to false
+            boolean notY = !y; // Inverts false to true
+            System.out.println("!x: " + notX); // Prints false
+            System.out.println("!y: " + notY); // Prints true
+        }
+
+        // --- 4. ASSIGNMENT OPERATORS ---
+        {
+            System.out.println("--- Assignment Operators ---");
+
+            // a. Assign (=)
+            int a = 10; // Assigns the value 10 to the variable 'a'
+            System.out.println("Initial a = " + a); // Prints 10
+
+            // b. Add and assign (+=)
+            a += 5; // Equivalent to: a = a + 5 (10 + 5)
+            System.out.println("a += 5  => " + a); // Prints 15
+
+            // c. Subtract and assign (-=)
+            a -= 2; // Equivalent to: a = a - 2 (15 - 2)
+            System.out.println("a -= 2  => " + a); // Prints 13
+
+            // d. Multiply and assign (*=)
+            a *= 3; // Equivalent to: a = a * 3 (13 * 3)
+            System.out.println("a *= 3  => " + a); // Prints 39
+
+            // e. Divide and assign (/=)
+            a /= 2; // Equivalent to: a = a / 2 (39 / 2 using integer division)
+            System.out.println("a /= 2  => " + a); // Prints 19
+
+            // f. Modulus and assign (%=)
+            a %= 4; // Equivalent to: a = a % 4 (Remainder of 19 / 4)
+            System.out.println("a %= 4  => " + a); // Prints 3
+        }
+
+        // --- 5. UNARY & Ternary OPERATORS ---
+        {
+            System.out.println("\n--- Unary Operators ---");
+            int num = 10;
+
+            // a. Unary plus (+)
+            int positiveNum = +num; // Indicates a positive value explicitly
+            System.out.println("+num    => " + positiveNum); // Prints 10
+
+            // b. Unary minus (-)
+            int negativeNum = -num; // Negates the value (multiplies by -1)
+            System.out.println("-num    => " + negativeNum); // Prints -10
+
+            // c. Increment (++)
+            // (PostFix)
+            num++; // Increases the value of 'num' by 1 (10 becomes 11)
+            System.out.println("num++   => " + num); // Prints 11
+            // (Prefix)
+            ++num; // Increases the value of 'num' by 1 (11 becomes 12)
+            System.out.println("++num   => " + num); // Prints 12
+
+
+            // d. Decrement (--)
+            // (PostFix)
+            num--; // Decreases the value of 'num' by 1 (11 becomes 10)
+            System.out.println("num--   => " + num); // Prints 10
+            // (Prefix)
+            --num; // Increases the value of 'num' by 1 (10 becomes 9)
+            System.out.println("--num   => " + num); // Prints 9
+
+            // --- 6. TERNARY OPERATOR ---
+            System.out.println("\n--- Ternary Operator ---");
+            int x = 10;
+            int y = 20;
+
+            // Syntax: condition ? expression_if_true : expression_if_false;
+            // Since (10 > 20) is false, it skips 'x' and picks 'y'
+            int max = (x > y) ? x : y;
+            System.out.println("max value between 10 and 20 is: " + max); // Prints 20
+        }
+
+        { // --- 7. BITWISE OPERATORS ---
+            int a = 5; // Binary: 0101
+            int b = 3; // Binary: 0011
+            System.out.println("--- Bitwise Operators ---");
+
+            // a. Bitwise AND (&)
+            // if both bits are 1 then the resulting bit will be 1
+            // 0101 & 0011 = 0001 (Decimal: 1)
+            int andResult = a & b;
+            System.out.println("a & b   => " + andResult);
+
+            // b. Bitwise OR (|)
+            // if a single bit is 1 then the resulting bit will be 1
+            // 0101 | 0011 = 0111 (Decimal: 7)
+            int orResult = a | b;
+            System.out.println("a | b   => " + orResult);
+
+            // c. Bitwise XOR (^)
+            // if both bits are different (i.e 1,0 or 0,1) then the resulting bit will be 1, in case of same
+            // it will be 0
+            // 0101 ^ 0011 = 0110 (Decimal: 6)
+            int xorResult = a ^ b;
+            System.out.println("a ^ b   => " + xorResult);
+
+            // d. Bitwise Complement/NOT (~)
+            // Inverts the bits (i.e 1 becomes 0 and 0 becomes 1) (Two's complement)
+            // Inverts 0101 to ...11111010 (Decimal: -6 due to Two's Complement)
+            int notResult = ~a;
+            System.out.println("~a      => " + notResult);
+        }
+
+        { // --- 8. SHIFT OPERATORS ---
+            int a = 5; // Binary: 0000 0101
+            System.out.println("\n--- Shift Operators ---");
+
+            // a. Left Shift (<<)
+            // Shifts bits left by 1 position (multiplies by 2). 0101 becomes 1010 (Decimal: 10)
+            int leftShift = a << 1;
+            System.out.println("a << 1  => " + leftShift);
+
+            // b. Signed Right Shift (>>)
+            // Shifts bits right by 1 position, keeping the sign bit. 0101 becomes 0010 (Decimal: 2)
+            int signedRightShift = a >> 1;
+            System.out.println("a >> 1  => " + signedRightShift);
+
+            // c. Unsigned Right Shift (>>>)
+            // Shifts bits right by 1 position, always filling the far left with a 0.
+            int unsignedRightShift = a >>> 1;
+            System.out.println("a >>> 1 => " + unsignedRightShift);
+        }
+
+        // Unsigned and Signed Right shift only differ in case of negative numbers
+        { // --- SIGNED RIGHT SHIFT (>>) ---
+            int negativeNum = -8;
+            // Binary: 11111111 11111111 11111111 11111000 (starts with 1)
+
+            int result = negativeNum >> 1;
+            // The computer slides everything right and copies the '1' to the front.
+            // Binary: 11111111 11111111 11111111 11111100
+
+            System.out.println("-8 >> 1 => " + result); // Prints -4 (Math preserved!)
+        }
+
+        { // --- UNSIGNED RIGHT SHIFT (>>>) ---
+            int negativeNum = -8;
+            // Binary: 11111111 11111111 11111111 11111000
+
+            int result = negativeNum >>> 1;
+            // The computer slides everything right and FORCES a '0' to the front.
+            // Binary: 01111111 11111111 11111111 11111100
+
+            System.out.println("-8 >>> 1 => " + result); // Prints 2147483644 (Massive positive number!)
+        }
+
+    }
 }
