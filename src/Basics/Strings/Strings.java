@@ -92,7 +92,11 @@ public class Strings {
         String updateWithReplaceFirst = d.replaceFirst("This" , "These"); // Regex based - replace first occurrence
 
 
-
-
+        // Splitting strings (regex)
+        String[] splitted = "a,b,c,d".split(","); // Splitting strings will result in a string array
+        String[] splitted1 = "a,,b,c,,d,".split(",");
+        String[] splitted2 = "a,b,,c,d,".split(",", -1); // keep trailing empties
+        String[] splitted3 = "a,,b,c,,,d".split(",+"); // Split based on one or more ","
+        
     }
 }
