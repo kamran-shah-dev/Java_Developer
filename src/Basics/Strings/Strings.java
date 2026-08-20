@@ -73,5 +73,26 @@ public class Strings {
         String removeLeading = newStringText1.stripLeading();
         String removeTrailing = newStringText1.stripTrailing();
         String removeIndent = newStringText1.stripIndent();
+
+
+        // Checking content
+        String c = "";
+        System.out.println(c.isEmpty()); // true
+
+        System.out.println("   ".isEmpty()); // false - spaces are characters
+        System.out.println("  ".isBlank()); // true - has character but all are spaces (Blank) (java 11+)
+        System.out.println(c.length()); // checking size of string
+
+
+        // Replacing content
+        String d = "This is a new string , strings are text in java,  this is a new content";
+        String changedD = d.replace('i' , 'I'); // Replace i with I (character replacement)
+        String updatedD = d.replace("string" , "String"); // Replace word with word
+        String updatedWithReplaceAll = d.replaceAll("string" , "String"); // Regex based - replace all occurrence
+        String updateWithReplaceFirst = d.replaceFirst("This" , "These"); // Regex based - replace first occurrence
+
+
+
+
     }
 }
