@@ -13,6 +13,27 @@ public class Strings {
             Object remains unmodified.
          */
 
+        // For long texts we used to format and concatenate, but now with text blocks we are good to create
+        // long text strings
+        String jsonFile = """
+                {
+                    "name" : "Abrar"
+                }
+                """;
+
+        String htmlPage = """
+                <!DOCTYPE html>
+                <html>
+                    <head>
+                    </head>
+                    <body>
+                        <div> This is first div </div>
+                    </body>
+                </html>
+                """;
+
+        System.out.println(jsonFile);
+        System.out.println();
         // Creating Strings
         String text = "Java"; // From literals
         String text1 = new String("Programming"); // Using new keyword
