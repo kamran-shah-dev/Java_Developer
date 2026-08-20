@@ -1,6 +1,7 @@
 package Basics.Strings;
 
 import java.util.Locale;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 public class Strings {
@@ -97,6 +98,8 @@ public class Strings {
         String[] splitted1 = "a,,b,c,,d,".split(",");
         String[] splitted2 = "a,b,,c,d,".split(",", -1); // keep trailing empties
         String[] splitted3 = "a,,b,c,,,d".split(",+"); // Split based on one or more ","
-        
+        String[] splitted4 = "a,b,c,d".split("," , 2); // Will split in two parts only
+        String[] splitted5 = "a|b|c|d".split("\\|"); // Split based on special character
+        String[] splitted6 = "a|b|c|d".split(Pattern.quote("|")); // This method is safe for dynamic delimeters
     }
 }
