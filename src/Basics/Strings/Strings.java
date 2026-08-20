@@ -1,8 +1,7 @@
 package Basics.Strings;
 
-import java.util.Locale;
+import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
 public class Strings {
     public static void main(String[] args) {
@@ -101,5 +100,36 @@ public class Strings {
         String[] splitted4 = "a,b,c,d".split("," , 2); // Will split in two parts only
         String[] splitted5 = "a|b|c|d".split("\\|"); // Split based on special character
         String[] splitted6 = "a|b|c|d".split(Pattern.quote("|")); // This method is safe for dynamic delimeters
+
+        // Joining Strings
+        String joined = String.join("," , "a" , "b" , "C" , "d"); // {a,b,C,d}
+        String joined1 = String.join("-" , List.of("a" , "b" , "C"));  // {a-b-c}
+
+        StringJoiner stringJoiner = new StringJoiner("," , "{" , "}");
+        stringJoiner.add("a");
+        stringJoiner.add("b");
+        stringJoiner.add("c");
+
+        System.out.println(stringJoiner); // {a-b-c}
+
+
+        // The intern method
+        String newString = new String("Alpha is Not Beta").intern();
+        // We know that with new keyword, a brand new string will be created and it will not by in the string pool
+        // to force add it to string pool we use the intern() method of string
+
+
+
+        // Converting other types to String
+        String doubleToString = Double.toString(55.6);
+        String inttoString = Integer.toString(67);
+        String floattoString = Float.toString(67.89f);
+        String charToString = Character.toString('C');
+        String shortToString = Short.toString((short) 55);
+        String byteToString = Byte.toString((byte) 1);
+        String longToString = Long.toString(54902847238L);
+        String booleanToString = Boolean.toString(true);
+        String objectToString = Objects.toString(null);
+
     }
 }
