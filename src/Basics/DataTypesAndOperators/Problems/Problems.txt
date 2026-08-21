@@ -11,4 +11,3 @@
 | JBF-009 | 🟠         | Create an electricity-bill calculator with different per-unit rates for consumption ranges. The price must be **progressive**, not simply one rate applied to every unit. |
 | JBF-010 | 🔴         | Build an ATM simulation with balance, deposit, withdrawal, balance inquiry and exit. Prevent invalid withdrawals and keep the menu running until exit.                    |
 | JBF-011 | 🔴         | Without converting the value to a `String`, determine whether a number such as `12321` is a palindrome. Also handle `12021`, `7`, `10`.                                   |
-| JBF-012 | 🔴         | Using **bitwise operators**, represent four permissions: READ, WRITE, UPDATE, DELETE. Allow permissions to be added, removed and checked using bit flags.                 |
