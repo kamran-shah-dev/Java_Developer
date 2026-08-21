@@ -82,6 +82,9 @@ public class WrapperClasses {
         System.out.println("   Binary representation of 42: " + Integer.toBinaryString(42));
         System.out.println("   Character 'a' isDigit: " + Character.isDigit('a'));
         System.out.println("   Character 'a' toUpperCase: " + Character.toUpperCase('a'));
+        System.out.println("   Minimum of two values: " + Integer.min(6,10));
+        System.out.println("   Maximum of two values: " + Integer.max(6,10));
+
 
         /*
          * STRUCTURE 6: Use in Generics & Collections
