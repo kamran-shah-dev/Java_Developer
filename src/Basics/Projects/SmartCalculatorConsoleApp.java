@@ -3,7 +3,6 @@ package Basics.Projects;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.SortedMap;
 
 public class SmartCalculatorConsoleApp {
 
@@ -178,14 +177,14 @@ public class SmartCalculatorConsoleApp {
         }
 
         int maxValue = 0;
-        Integer key = null;
+        int key = 0;
 
         for (Map.Entry<Integer, Integer> entry : valueCount.entrySet()) {
             if (maxValue < entry.getValue()) {
                 key = entry.getKey();
             }
         }
-        return 1;
+        return key;
     }
 
 }
