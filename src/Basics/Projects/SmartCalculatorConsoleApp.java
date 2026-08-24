@@ -74,4 +74,27 @@ public class SmartCalculatorConsoleApp {
             System.out.println(resultsDescription[i] + " : " + latestResults[i]);
         }
     }
+
+    private static void printSummaryStatistics(int[] latestResults) {
+        int sum = 0;
+        double average;
+        int min = latestResults[0];
+        int max = latestResults[0];
+        int median;
+        int mode;
+        for (int latestResult : latestResults) {
+            sum += latestResult;
+            if (min > latestResult) {
+                min = latestResult;
+            }
+            if (max < latestResult) {
+                max = latestResult;
+            }
+        }
+
+        //mode = modeValue(latestResults);
+        //median = medianValue(latestResults);
+    }
+
+
 }
