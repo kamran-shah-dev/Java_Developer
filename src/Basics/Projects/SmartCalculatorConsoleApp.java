@@ -80,7 +80,7 @@ public class SmartCalculatorConsoleApp {
         double average;
         int min = latestResults[0];
         int max = latestResults[0];
-        int median;
+        double median;
         int mode;
         for (int latestResult : latestResults) {
             sum += latestResult;
@@ -93,10 +93,16 @@ public class SmartCalculatorConsoleApp {
         }
 
         mode = modeValue(latestResults);
-        //median = medianValue(latestResults);
+        median = medianValue(latestResults);
     }
 
-
+    private static double medianValue(int[] latestResults) {
+        int midIndex = latestResults.length / 2;
+        if (latestResults.length % 2 == 0) {
+            return (latestResults[midIndex] + latestResults[midIndex - 1]) / (double) 2;
+        }
+        return latestResults[midIndex];
+    }
 
     private static int modeValue (int[] latestResults) {
         HashMap<Integer, Integer> valueCount = new HashMap<>();
