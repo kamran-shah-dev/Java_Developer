@@ -21,6 +21,7 @@ public class SmartCalculatorConsoleApp {
         System.out.println("Use Last Answer: (ans)");
         System.out.println("Close the application: (Exit)");
 
+        int i = 0;
         while (true) {
             System.out.print("What operation do you want to perform: ");
             String choice = input.nextLine();
@@ -28,12 +29,29 @@ public class SmartCalculatorConsoleApp {
                 break;
             }
             char option = choice.charAt(0);
+            int value1, value2, result;
             switch (option) {
                 case '+':
-                    System.out.println("Performs addition");
+                    System.out.print("Enter first value: ");
+                    value1 = Integer.parseInt(input.nextLine());
+                    System.out.print("Enter second value: ");
+                    value2 = Integer.parseInt(input.nextLine());
+                    result = value1 + value2;
+                    System.out.print("Result: " + result);
+                    latestResults[i] = result;
+                    resultsDescription[i] = (value1 + " + " + value2);
+                    i++;
                     break;
                 case '-':
-                    System.out.println("Perform subtraction");
+                    System.out.print("Enter first value: ");
+                    value1 = Integer.parseInt(input.nextLine());
+                    System.out.print("Enter second value: ");
+                    value2 = Integer.parseInt(input.nextLine());
+                    result = value1 - value2;
+                    System.out.print("Result: " + result);
+                    latestResults[i] = result;
+                    resultsDescription[i] = (value1 + " - " + value2);
+                    i++;
                     break;
                 case '*':
                     System.out.println("Performs multiplication");
@@ -74,7 +92,7 @@ public class SmartCalculatorConsoleApp {
 
     private static void printHistory(int[] latestResults, String[] resultsDescription) {
         for (int i = 0; i < latestResults.length; i++) {
-            System.out.println(resultsDescription[i] + " : " + latestResults[i]);
+            System.out.println(resultsDescription[i] + " = " + latestResults[i]);
         }
     }
 
