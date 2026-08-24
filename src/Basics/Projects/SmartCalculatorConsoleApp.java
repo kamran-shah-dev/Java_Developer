@@ -54,10 +54,26 @@ public class SmartCalculatorConsoleApp {
                     i++;
                     break;
                 case '*':
-                    System.out.println("Performs multiplication");
+                    System.out.print("Enter first value: ");
+                    value1 = Integer.parseInt(input.nextLine());
+                    System.out.print("Enter second value: ");
+                    value2 = Integer.parseInt(input.nextLine());
+                    result = value1 * value2;
+                    System.out.print("Result: " + result);
+                    latestResults[i] = result;
+                    resultsDescription[i] = (value1 + " x " + value2);
+                    i++;
                     break;
                 case '/':
-                    System.out.println("Perform division");
+                    System.out.print("Enter first value: ");
+                    value1 = Integer.parseInt(input.nextLine());
+                    System.out.print("Enter second value: ");
+                    value2 = Integer.parseInt(input.nextLine());
+                    result = value1 / value2;
+                    System.out.print("Result: " + result);
+                    latestResults[i] = result;
+                    resultsDescription[i] = (value1 + " / " + value2);
+                    i++;
                     break;
                 case '%':
                     System.out.println("Performs modulus");
