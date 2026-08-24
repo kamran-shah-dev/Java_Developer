@@ -92,9 +92,35 @@ public class SmartCalculatorConsoleApp {
             }
         }
 
-        //mode = modeValue(latestResults);
+        mode = modeValue(latestResults);
         //median = medianValue(latestResults);
     }
 
+
+
+    private static int modeValue (int[] latestResults) {
+        HashMap<Integer, Integer> valueCount = new HashMap<>();
+        for (int number : latestResults) {
+            /* Traditional Way
+            if (valueCount.containsKey(number)) {
+                valueCount.put(number, valueCount.getOrDefault(number, 0) + 1);
+            }
+            */
+
+            // One-liner
+            valueCount.merge(number, 1, Integer::sum);
+        }
+
+        int maxValue = 0;
+        Integer key = null;
+
+        for (Map.Entry<Integer, Integer> entry : valueCount.entrySet()) {
+            if (maxValue < entry.getValue()) {
+                key = entry.getKey();
+            }
+        }
+
+        return 1;
+    }
 
 }
