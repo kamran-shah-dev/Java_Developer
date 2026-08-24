@@ -51,7 +51,7 @@ public class SmartCalculatorConsoleApp {
                     printHistory(latestResults, resultsDescription);
                     break;
                 case 's':
-                    System.out.println("Print Summary Statistics");
+                    printSummaryStatistics(latestResults);
                     break;
                 case 'a':
                     System.out.println("Perform something with last answer");
