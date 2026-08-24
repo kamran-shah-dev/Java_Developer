@@ -65,9 +65,9 @@ public class SmartCalculatorConsoleApp {
                     i++;
                     break;
                 case '/':
-                    System.out.print("Enter first value: ");
+                    System.out.print("Enter the dividend: ");
                     value1 = Integer.parseInt(input.nextLine());
-                    System.out.print("Enter second value: ");
+                    System.out.print("Enter the divisor: ");
                     value2 = Integer.parseInt(input.nextLine());
                     result = value1 / value2;
                     System.out.print("Result: " + result);
@@ -76,10 +76,26 @@ public class SmartCalculatorConsoleApp {
                     i++;
                     break;
                 case '%':
-                    System.out.println("Performs modulus");
+                    System.out.print("Enter the dividend: ");
+                    value1 = Integer.parseInt(input.nextLine());
+                    System.out.print("Enter the divisor: ");
+                    value2 = Integer.parseInt(input.nextLine());
+                    result = value1 % value2;
+                    System.out.print("Result: " + result);
+                    latestResults[i] = result;
+                    resultsDescription[i] = (value1 + " % " + value2);
+                    i++;
                     break;
                 case '^':
-                    System.out.println("Perform power");
+                    System.out.print("Enter base: ");
+                    value1 = Integer.parseInt(input.nextLine());
+                    System.out.print("Enter exponent / power: ");
+                    value2 = Integer.parseInt(input.nextLine());
+                    result = (int) Math.pow(value1 , value2);
+                    System.out.print("Result: " + result);
+                    latestResults[i] = result;
+                    resultsDescription[i] = (value1 + " + " + value2);
+                    i++;
                     break;
                 case 'h':
                     printHistory(latestResults, resultsDescription);
