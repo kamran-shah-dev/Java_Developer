@@ -91,9 +91,16 @@ public class SmartCalculatorConsoleApp {
                 max = latestResult;
             }
         }
-
         mode = modeValue(latestResults);
         median = medianValue(latestResults);
+        average = sum / (double) latestResults.length;
+
+        System.out.println("Sum: " + sum);
+        System.out.println("Average: " + average);
+        System.out.println("Minimum: " + min);
+        System.out.println("Maximum: " + max);
+        System.out.println("Median: " + median);
+        System.out.println("Mode: " + mode);
     }
 
     private static double medianValue(int[] latestResults) {
