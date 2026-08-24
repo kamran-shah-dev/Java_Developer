@@ -65,8 +65,11 @@ public class SmartCalculatorConsoleApp {
 
     }
 
-    private static void dropOldestResult() {
-
+    private static void dropOldestResult(int[] latestResults, String[] resultsDescription) {
+        for (int i = 0; i < latestResults.length - 1; i++) {
+            latestResults[i] = latestResults[i+1];
+            resultsDescription[i] = resultsDescription[i+1];
+        }
     }
 
     private static void printHistory(int[] latestResults, String[] resultsDescription) {
@@ -132,7 +135,6 @@ public class SmartCalculatorConsoleApp {
                 key = entry.getKey();
             }
         }
-
         return 1;
     }
 
