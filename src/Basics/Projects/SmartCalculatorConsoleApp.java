@@ -34,78 +34,24 @@ public class SmartCalculatorConsoleApp {
             String resultDescription;
             switch (option) {
                 case '+':
-                    while (true) {
-                        System.out.print("Enter the first value: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value1 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            System.out.println("Invalid Number! Try again...");
-                        }
-                    }
-                    while (true) {
-                        System.out.print("Enter the second value: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value2 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            System.out.println("Invalid Number! Try again...");
-                        }
-                    }
+                    value1 = validateUserInput(input, "First");
+                    value2 = validateUserInput(input , "Second");
                     result = value1 + value2;
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " + " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '-':
-                    while (true) {
-                        System.out.print("Enter the first value: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value1 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            System.out.println("Invalid Number! Try again...");
-                        }
-                    }
-                    while (true) {
-                        System.out.print("Enter the second value: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value2 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            System.out.println("Invalid Number! Try again...");
-                        }
-                    }
+                    value1 = validateUserInput(input, "First");
+                    value2 = validateUserInput(input , "Second");
                     result = value1 - value2;
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " - " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '*':
-                    while (true) {
-                        System.out.print("Enter the first value: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value1 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            System.out.println("Invalid Number! Try again...");
-                        }
-                    }
-                    while (true) {
-                        System.out.print("Enter the second value: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value2 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            System.out.println("Invalid Number! Try again...");
-                        }
-                    }
+                    value1 = validateUserInput(input, "First");
+                    value2 = validateUserInput(input , "Second");
                     result = value1 * value2;
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " * " + value2);
@@ -166,33 +112,14 @@ public class SmartCalculatorConsoleApp {
                             }
                         }
                     }
-
                     result = value1 % value2;
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " % " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '^':
-                    while (true) {
-                        System.out.print("Enter Base: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value1 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            System.out.println("Invalid Number! Try again...");
-                        }
-                    }
-                    while (true) {
-                        System.out.print("Enter Power / Exponent: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value2 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            System.out.println("Invalid Number! Try again...");
-                        }
-                    }
+                    value1 = validateUserInput(input, "First");
+                    value2 = validateUserInput(input , "Second");
                     result = (int) Math.pow(value1 , value2);
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " ^ " + value2);
@@ -213,6 +140,18 @@ public class SmartCalculatorConsoleApp {
             }
         }
 
+    }
+
+    private static int validateUserInput(Scanner input, String inputNumber) {
+        while (true) {
+            System.out.print("Enter the " + inputNumber +" value: ");
+            String userInput = input.nextLine();
+            if (isValidNumber(userInput)) {
+                return Integer.parseInt(userInput);
+            } else {
+                System.out.println("Invalid Number! Try again...");
+            }
+        }
     }
 
     private static boolean isValidNumber(String firstNumber) {
