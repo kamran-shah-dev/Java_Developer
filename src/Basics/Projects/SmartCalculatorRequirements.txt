@@ -1,0 +1,43 @@
+Project Spec: Smart Console Calculator ("A Java Program That Thinks")
+
+Course reference: Module 1 exercise (Variables, Data Types, Operators, Conditionals, Loops, Arrays)
+Constraint: No classes/OOP, no collections, no exceptions-as-a-topic yet — this is pure procedural
+Java using Scanner, primitives, conditionals, loops, and arrays. The "advanced" and "thinking" angle
+comes from robustness and decision logic, not from using features you haven't learned yet.
+
+1. Problem Statement
+
+Build a console-based calculator that doesn't just compute one expression and exit — it runs as a
+continuous session, keeps a memory of past results, adapts its behavior based on user input patterns,
+and handles bad input gracefully instead of crashing.
+
+2. Functional Requirements
+-> Core arithmetic: + - * / % and integer power (^), on two operands entered by the user.
+-> Session loop: the calculator keeps running after each calculation and asks "another
+   calculation? (y/n)" — it does not exit after one operation.
+-> Running memory ("last answer"): the user can type ans in place of a number to reuse the
+   previous result (e.g. ans * 2).
+-> History: store the last 5 calculations (operation + result) in an array, and let the user
+   type history to print them.
+-> Smart mode detection: if the user enters the same operator 3 times in a row, print a short
+   message like "Looks like you're doing a lot of division — want a running total instead?" and,
+   if they say yes, switch to an accumulator mode where each new number is applied to the running
+   total instead of asking for two fresh operands.
+-> Input validation: reject non-numeric input, division/modulo by zero, and unknown operators —
+   without crashing, and without ending the session. Re-prompt instead.
+-> Exit command: typing exit or quit at any prompt ends the session and prints a summary (total
+   calculations performed, most-used operator).
+
+4. Design Decisions You Need to Make (don't skip this — do it before coding)
+-> Data structures: what array(s) hold history? Do you store results as double[], or do you need a
+   second String[] for the operation description? How do you keep them in sync?
+-> Shifting logic: when the 6th calculation comes in, how do you drop the oldest and shift the rest?
+   Write this out as pseudocode/on paper before touching code — this is the trickiest part of the whole
+   exercise.
+-> Operator-streak detection: how do you track "last 3 operators used" with only primitives/arrays?
+   What's the simplest state you need to keep?
+-> Input validation strategy: do you validate inside a loop that keeps re-prompting, or write a
+   boolean-returning isValidNumber() helper? Decide on one consistent pattern and use it everywhere.
+-> Menu vs. free-form input: will operations be typed as 5 + 3 (parsed from one line) or asked as
+   three separate prompts (number, operator, number)? Either is fine — pick one and be consistent.
+   Free-form parsing (Scanner.next() three times, or splitting a line) is the more "advanced" option.
