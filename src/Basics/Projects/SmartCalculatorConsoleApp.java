@@ -34,60 +34,165 @@ public class SmartCalculatorConsoleApp {
             String resultDescription;
             switch (option) {
                 case '+':
-                    System.out.print("Enter first value: ");
-                    value1 = Integer.parseInt(input.nextLine());
-                    System.out.print("Enter second value: ");
-                    value2 = Integer.parseInt(input.nextLine());
+                    while (true) {
+                        System.out.print("Enter the first value: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value1 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            System.out.println("Invalid Number! Try again...");
+                        }
+                    }
+                    while (true) {
+                        System.out.print("Enter the second value: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value2 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            System.out.println("Invalid Number! Try again...");
+                        }
+                    }
                     result = value1 + value2;
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " + " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '-':
-                    System.out.print("Enter first value: ");
-                    value1 = Integer.parseInt(input.nextLine());
-                    System.out.print("Enter second value: ");
-                    value2 = Integer.parseInt(input.nextLine());
+                    while (true) {
+                        System.out.print("Enter the first value: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value1 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            System.out.println("Invalid Number! Try again...");
+                        }
+                    }
+                    while (true) {
+                        System.out.print("Enter the second value: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value2 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            System.out.println("Invalid Number! Try again...");
+                        }
+                    }
                     result = value1 - value2;
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " - " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '*':
-                    System.out.print("Enter first value: ");
-                    value1 = Integer.parseInt(input.nextLine());
-                    System.out.print("Enter second value: ");
-                    value2 = Integer.parseInt(input.nextLine());
+                    while (true) {
+                        System.out.print("Enter the first value: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value1 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            System.out.println("Invalid Number! Try again...");
+                        }
+                    }
+                    while (true) {
+                        System.out.print("Enter the second value: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value2 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            System.out.println("Invalid Number! Try again...");
+                        }
+                    }
                     result = value1 * value2;
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " * " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '/':
-                    System.out.print("Enter the dividend: ");
-                    value1 = Integer.parseInt(input.nextLine());
-                    System.out.print("Enter the divisor: ");
-                    value2 = Integer.parseInt(input.nextLine());
+                    while (true) {
+                        System.out.print("Enter the dividend: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value1 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            System.out.println("Invalid Number! Try again...");
+                        }
+                    }
+                    while (true) {
+                        System.out.print("Enter the divisor: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value2 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            if (Integer.parseInt(userInput) == 0) {
+                                System.out.println("Divisor cannot be zero. It will cause division by 0 Error! Try again...");
+                            } else {
+                                System.out.println("Invalid Number! Try again...");
+                            }
+                        }
+                    }
                     result = value1 / value2;
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " / " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '%':
-                    System.out.print("Enter the dividend: ");
-                    value1 = Integer.parseInt(input.nextLine());
-                    System.out.print("Enter the divisor: ");
-                    value2 = Integer.parseInt(input.nextLine());
+                    while (true) {
+                        System.out.print("Enter the dividend: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value1 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            System.out.println("Invalid Number! Try again...");
+                        }
+                    }
+                    while (true) {
+                        System.out.print("Enter the divisor: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value2 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            if (Integer.parseInt(userInput) == 0) {
+                                System.out.println("Divisor cannot be zero. It will cause division by 0 Error! Try again...");
+                            } else {
+                                System.out.println("Invalid Number! Try again...");
+                            }
+                        }
+                    }
+
                     result = value1 % value2;
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " % " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '^':
-                    System.out.print("Enter base: ");
-                    value1 = Integer.parseInt(input.nextLine());
-                    System.out.print("Enter exponent / power: ");
-                    value2 = Integer.parseInt(input.nextLine());
+                    while (true) {
+                        System.out.print("Enter Base: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value1 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            System.out.println("Invalid Number! Try again...");
+                        }
+                    }
+                    while (true) {
+                        System.out.print("Enter Power / Exponent: ");
+                        String userInput = input.nextLine();
+                        if (isValidNumber(userInput)) {
+                            value2 = Integer.parseInt(userInput);
+                            break;
+                        } else {
+                            System.out.println("Invalid Number! Try again...");
+                        }
+                    }
                     result = (int) Math.pow(value1 , value2);
                     System.out.print("Result: " + result);
                     resultDescription = (value1 + " ^ " + value2);
@@ -108,6 +213,18 @@ public class SmartCalculatorConsoleApp {
             }
         }
 
+    }
+
+    private static boolean isValidNumber(String firstNumber) {
+        if (firstNumber == null) {
+            return false;
+        }
+        try {
+            Integer.parseInt(firstNumber);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     private static int dropOldestResult(int[] latestResults, String[] resultsDescription) {
