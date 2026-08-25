@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class SmartCalculatorConsoleApp {
 
-
     public static void main(String[] args) {
         int[] latestResults = new int[5];
         String[] resultsDescription = new String[5];
@@ -19,7 +18,6 @@ public class SmartCalculatorConsoleApp {
         System.out.println("Calculation History: (h)                  |    Summary: (s)");
         System.out.println("Use Last Answer: (ans)");
         System.out.println("Close the application: (Exit)");
-
         int i = 0;
         while (true) {
             System.out.print("What operation do you want to perform: ");
