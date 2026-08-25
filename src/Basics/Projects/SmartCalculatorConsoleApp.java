@@ -84,7 +84,7 @@ public class SmartCalculatorConsoleApp {
                     printHistory(latestResults, resultsDescription);
                     break;
                 case 's':
-                    printSummaryStatistics(latestResults);
+                    printSummaryStatistics(latestResults, resultsDescription);
                     break;
                 case 'a':
                     System.out.println("Perform something with last answer");
@@ -135,30 +135,36 @@ public class SmartCalculatorConsoleApp {
     }
 
     private static void printHistory(int[] latestResults, String[] resultsDescription) {
-        for (int i = 0; i < latestResults.length; i++) {
+        for (int i = 0; i <= filledCount(resultsDescription); i++) {
             System.out.println(resultsDescription[i] + " = " + latestResults[i]);
         }
     }
 
-    private static void printSummaryStatistics(int[] latestResults) {
+    private static void printSummaryStatistics(int[] latestResults, String[] resultsDescription) {
         int sum = 0;
         double average;
         int min = latestResults[0];
         int max = latestResults[0];
         double median;
         int mode;
-        for (int latestResult : latestResults) {
-            sum += latestResult;
-            if (min > latestResult) {
-                min = latestResult;
+        int filledArraySize = filledCount(resultsDescription);
+        for (int i = 0; i < filledArraySize; i++) {
+            sum += latestResults[i];
+            if (min > latestResults[i]) {
+                min = latestResults[i];
             }
-            if (max < latestResult) {
-                max = latestResult;
+            if (max < latestResults[i]) {
+                max = latestResults[i];
             }
         }
-        mode = modeValue(latestResults);
-        median = medianValue(latestResults);
-        average = sum / (double) latestResults.length;
+        mode = modeValue(latestResults , filledArraySize);
+        int midIndex = filledArraySize / 2;
+        if (filledArraySize % 2 == 0) {
+            median = (latestResults[midIndex] + latestResults[midIndex - 1]) / (double) 2;
+        } else {
+            median = latestResults[midIndex];
+        }
+        average = sum / (double) filledArraySize;
 
         System.out.println("Sum: " + sum);
         System.out.println("Average: " + average);
@@ -168,17 +174,17 @@ public class SmartCalculatorConsoleApp {
         System.out.println("Mode: " + mode);
     }
 
-    private static double medianValue(int[] latestResults) {
-        int midIndex = latestResults.length / 2;
-        if (latestResults.length % 2 == 0) {
-            return (latestResults[midIndex] + latestResults[midIndex - 1]) / (double) 2;
+    private static int filledCount(String[] resultsDescription) {
+        int size = 0;
+        while (resultsDescription[size] != null) {
+            size++;
         }
-        return latestResults[midIndex];
+        return size;
     }
 
-    private static int modeValue (int[] latestResults) {
+    private static int modeValue (int[] latestResults, int filledArraySize) {
         HashMap<Integer, Integer> valueCount = new HashMap<>();
-        for (int number : latestResults) {
+        for (int i = 0; i <= filledArraySize; i++) {
             /* Traditional Way
             if (valueCount.containsKey(number)) {
                 valueCount.put(number, valueCount.getOrDefault(number, 0) + 1);
@@ -186,7 +192,7 @@ public class SmartCalculatorConsoleApp {
             */
 
             // One-liner
-            valueCount.merge(number, 1, Integer::sum);
+            valueCount.merge(latestResults[i], 1, Integer::sum);
         }
 
         int maxValue = 0;
