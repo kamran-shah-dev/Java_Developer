@@ -31,6 +31,7 @@ public class SmartCalculatorConsoleApp {
             }
             char option = choice.charAt(0);
             int value1, value2, result;
+            String resultDescription;
             switch (option) {
                 case '+':
                     System.out.print("Enter first value: ");
@@ -39,8 +40,8 @@ public class SmartCalculatorConsoleApp {
                     value2 = Integer.parseInt(input.nextLine());
                     result = value1 + value2;
                     System.out.print("Result: " + result);
-
-                    i++;
+                    resultDescription = (value1 + " + " + value2);
+                    i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '-':
                     System.out.print("Enter first value: ");
@@ -49,9 +50,8 @@ public class SmartCalculatorConsoleApp {
                     value2 = Integer.parseInt(input.nextLine());
                     result = value1 - value2;
                     System.out.print("Result: " + result);
-                    latestResults[i] = result;
-                    resultsDescription[i] = (value1 + " - " + value2);
-                    i++;
+                    resultDescription = (value1 + " - " + value2);
+                    i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '*':
                     System.out.print("Enter first value: ");
@@ -60,9 +60,8 @@ public class SmartCalculatorConsoleApp {
                     value2 = Integer.parseInt(input.nextLine());
                     result = value1 * value2;
                     System.out.print("Result: " + result);
-                    latestResults[i] = result;
-                    resultsDescription[i] = (value1 + " x " + value2);
-                    i++;
+                    resultDescription = (value1 + " * " + value2);
+                    i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '/':
                     System.out.print("Enter the dividend: ");
@@ -71,9 +70,8 @@ public class SmartCalculatorConsoleApp {
                     value2 = Integer.parseInt(input.nextLine());
                     result = value1 / value2;
                     System.out.print("Result: " + result);
-                    latestResults[i] = result;
-                    resultsDescription[i] = (value1 + " / " + value2);
-                    i++;
+                    resultDescription = (value1 + " / " + value2);
+                    i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '%':
                     System.out.print("Enter the dividend: ");
@@ -82,9 +80,8 @@ public class SmartCalculatorConsoleApp {
                     value2 = Integer.parseInt(input.nextLine());
                     result = value1 % value2;
                     System.out.print("Result: " + result);
-                    latestResults[i] = result;
-                    resultsDescription[i] = (value1 + " % " + value2);
-                    i++;
+                    resultDescription = (value1 + " % " + value2);
+                    i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '^':
                     System.out.print("Enter base: ");
@@ -93,9 +90,8 @@ public class SmartCalculatorConsoleApp {
                     value2 = Integer.parseInt(input.nextLine());
                     result = (int) Math.pow(value1 , value2);
                     System.out.print("Result: " + result);
-                    latestResults[i] = result;
-                    resultsDescription[i] = (value1 + " + " + value2);
-                    i++;
+                    resultDescription = (value1 + " ^ " + value2);
+                    i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case 'h':
                     printHistory(latestResults, resultsDescription);
