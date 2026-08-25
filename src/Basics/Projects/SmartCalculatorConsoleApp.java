@@ -106,7 +106,6 @@ public class SmartCalculatorConsoleApp {
                     System.out.println("Invalid input");
                     break;
             }
-
         }
 
     }
@@ -179,6 +178,7 @@ public class SmartCalculatorConsoleApp {
 
         for (Map.Entry<Integer, Integer> entry : valueCount.entrySet()) {
             if (maxValue < entry.getValue()) {
+                maxValue = entry.getValue();
                 key = entry.getKey();
             }
         }
