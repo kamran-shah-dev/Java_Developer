@@ -34,7 +34,7 @@ public class SmartCalculatorConsoleApp {
             switch (option) {
                 case '+':
                     value1 = validateUserInput(input, "First");
-                    value2 = validateUserInput(input , "Second");
+                    value2 = validateUserInput(input, "Second");
                     result = value1 + value2;
                     System.out.println("Result: " + result);
                     resultDescription = (value1 + " + " + value2);
@@ -42,7 +42,7 @@ public class SmartCalculatorConsoleApp {
                     break;
                 case '-':
                     value1 = validateUserInput(input, "First");
-                    value2 = validateUserInput(input , "Second");
+                    value2 = validateUserInput(input, "Second");
                     result = value1 - value2;
                     System.out.println("Result: " + result);
                     resultDescription = (value1 + " - " + value2);
@@ -50,7 +50,7 @@ public class SmartCalculatorConsoleApp {
                     break;
                 case '*':
                     value1 = validateUserInput(input, "First");
-                    value2 = validateUserInput(input , "Second");
+                    value2 = validateUserInput(input, "Second");
                     result = value1 * value2;
                     System.out.println("Result: " + result);
                     resultDescription = (value1 + " * " + value2);
@@ -74,8 +74,8 @@ public class SmartCalculatorConsoleApp {
                     break;
                 case '^':
                     value1 = validateUserInput(input, "First");
-                    value2 = validateUserInput(input , "Second");
-                    result = (int) Math.pow(value1 , value2);
+                    value2 = validateUserInput(input, "Second");
+                    result = (int) Math.pow(value1, value2);
                     System.out.println("Result: " + result);
                     resultDescription = (value1 + " ^ " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
@@ -99,7 +99,7 @@ public class SmartCalculatorConsoleApp {
 
     private static int validateUserInput(Scanner input, String requiredInput) {
         while (true) {
-            System.out.print("Enter the " + requiredInput +": ");
+            System.out.print("Enter the " + requiredInput + ": ");
             String userInput = input.nextLine();
 
             if (isValidNumber(userInput)) {
@@ -128,14 +128,14 @@ public class SmartCalculatorConsoleApp {
 
     private static int dropOldestResult(int[] latestResults, String[] resultsDescription) {
         for (int i = 0; i < latestResults.length - 1; i++) {
-            latestResults[i] = latestResults[i+1];
-            resultsDescription[i] = resultsDescription[i+1];
+            latestResults[i] = latestResults[i + 1];
+            resultsDescription[i] = resultsDescription[i + 1];
         }
         return latestResults.length - 1;
     }
 
     private static void printHistory(int[] latestResults, String[] resultsDescription) {
-        for (int i = 0; i <= filledCount(resultsDescription); i++) {
+        for (int i = 0; i < filledCount(resultsDescription); i++) {
             System.out.println(resultsDescription[i] + " = " + latestResults[i]);
         }
     }
@@ -148,6 +148,10 @@ public class SmartCalculatorConsoleApp {
         double median;
         int mode;
         int filledArraySize = filledCount(resultsDescription);
+        if (filledArraySize == 0) {
+            System.out.println("No calculations yet. Perform some calculations..");
+            return;
+        }
         for (int i = 0; i < filledArraySize; i++) {
             sum += latestResults[i];
             if (min > latestResults[i]) {
@@ -157,7 +161,7 @@ public class SmartCalculatorConsoleApp {
                 max = latestResults[i];
             }
         }
-        mode = modeValue(latestResults , filledArraySize);
+        mode = modeValue(latestResults, filledArraySize);
         int midIndex = filledArraySize / 2;
         if (filledArraySize % 2 == 0) {
             median = (latestResults[midIndex] + latestResults[midIndex - 1]) / (double) 2;
@@ -176,15 +180,15 @@ public class SmartCalculatorConsoleApp {
 
     private static int filledCount(String[] resultsDescription) {
         int size = 0;
-        while (resultsDescription[size] != null) {
+        while (size < resultsDescription.length && resultsDescription[size] != null) {
             size++;
         }
         return size;
     }
 
-    private static int modeValue (int[] latestResults, int filledArraySize) {
+    private static int modeValue(int[] latestResults, int filledArraySize) {
         HashMap<Integer, Integer> valueCount = new HashMap<>();
-        for (int i = 0; i <= filledArraySize; i++) {
+        for (int i = 0; i < filledArraySize; i++) {
             /* Traditional Way
             if (valueCount.containsKey(number)) {
                 valueCount.put(number, valueCount.getOrDefault(number, 0) + 1);
@@ -208,7 +212,7 @@ public class SmartCalculatorConsoleApp {
     }
 
     private static int updateHistory(int[] latestResults, String[] resultsDescription,
-                                      int index, int calculationResult, String resultDesc) {
+                                     int index, int calculationResult, String resultDesc) {
         if (index < latestResults.length) {
             latestResults[index] = calculationResult;
             resultsDescription[index] = resultDesc;
