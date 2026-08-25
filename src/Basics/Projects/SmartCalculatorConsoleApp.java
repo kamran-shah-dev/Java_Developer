@@ -37,7 +37,7 @@ public class SmartCalculatorConsoleApp {
                     value1 = validateUserInput(input, "First");
                     value2 = validateUserInput(input , "Second");
                     result = value1 + value2;
-                    System.out.print("Result: " + result);
+                    System.out.println("Result: " + result);
                     resultDescription = (value1 + " + " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
@@ -45,7 +45,7 @@ public class SmartCalculatorConsoleApp {
                     value1 = validateUserInput(input, "First");
                     value2 = validateUserInput(input , "Second");
                     result = value1 - value2;
-                    System.out.print("Result: " + result);
+                    System.out.println("Result: " + result);
                     resultDescription = (value1 + " - " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
@@ -53,67 +53,23 @@ public class SmartCalculatorConsoleApp {
                     value1 = validateUserInput(input, "First");
                     value2 = validateUserInput(input , "Second");
                     result = value1 * value2;
-                    System.out.print("Result: " + result);
+                    System.out.println("Result: " + result);
                     resultDescription = (value1 + " * " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '/':
-                    while (true) {
-                        System.out.print("Enter the dividend: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value1 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            System.out.println("Invalid Number! Try again...");
-                        }
-                    }
-                    while (true) {
-                        System.out.print("Enter the divisor: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value2 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            if (Integer.parseInt(userInput) == 0) {
-                                System.out.println("Divisor cannot be zero. It will cause division by 0 Error! Try again...");
-                            } else {
-                                System.out.println("Invalid Number! Try again...");
-                            }
-                        }
-                    }
+                    value1 = validateUserInput(input, "dividend");
+                    value2 = validateUserInput(input, "divisor");
                     result = value1 / value2;
-                    System.out.print("Result: " + result);
+                    System.out.println("Result: " + result);
                     resultDescription = (value1 + " / " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
                 case '%':
-                    while (true) {
-                        System.out.print("Enter the dividend: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value1 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            System.out.println("Invalid Number! Try again...");
-                        }
-                    }
-                    while (true) {
-                        System.out.print("Enter the divisor: ");
-                        String userInput = input.nextLine();
-                        if (isValidNumber(userInput)) {
-                            value2 = Integer.parseInt(userInput);
-                            break;
-                        } else {
-                            if (Integer.parseInt(userInput) == 0) {
-                                System.out.println("Divisor cannot be zero. It will cause division by 0 Error! Try again...");
-                            } else {
-                                System.out.println("Invalid Number! Try again...");
-                            }
-                        }
-                    }
+                    value1 = validateUserInput(input, "dividend");
+                    value2 = validateUserInput(input, "divisor");
                     result = value1 % value2;
-                    System.out.print("Result: " + result);
+                    System.out.println("Result: " + result);
                     resultDescription = (value1 + " % " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
@@ -121,7 +77,7 @@ public class SmartCalculatorConsoleApp {
                     value1 = validateUserInput(input, "First");
                     value2 = validateUserInput(input , "Second");
                     result = (int) Math.pow(value1 , value2);
-                    System.out.print("Result: " + result);
+                    System.out.println("Result: " + result);
                     resultDescription = (value1 + " ^ " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                     break;
@@ -142,15 +98,20 @@ public class SmartCalculatorConsoleApp {
 
     }
 
-    private static int validateUserInput(Scanner input, String inputNumber) {
+    private static int validateUserInput(Scanner input, String requiredInput) {
         while (true) {
-            System.out.print("Enter the " + inputNumber +" value: ");
+            System.out.print("Enter the " + requiredInput +": ");
             String userInput = input.nextLine();
+
             if (isValidNumber(userInput)) {
+                if (requiredInput.equalsIgnoreCase("divisor")
+                        && Integer.parseInt(userInput) == 0) {
+                    System.out.println("Division By Zero Error! Try again...");
+                    continue;
+                }
                 return Integer.parseInt(userInput);
-            } else {
-                System.out.println("Invalid Number! Try again...");
             }
+            System.out.println("Invalid Number! Try again...");
         }
     }
 
