@@ -7,10 +7,14 @@ import java.util.Scanner;
 public class SmartCalculatorConsoleApp {
 
     public static void main(String[] args) {
-        int[] latestResults = new int[5];
-        String[] resultsDescription = new String[5];
-
         Scanner input = new Scanner(System.in);
+
+        System.out.println("Welcome to Smart-Calculator");
+        System.out.print("What should be the size of bucket to hold history of calculations: ");
+        int size = Integer.parseInt(input.nextLine());
+        int[] latestResults = new int[size];
+        String[] resultsDescription = new String[size];
+
         System.out.println("How to use.");
         System.out.println("Commands");
         System.out.println("Addition: (+)    |    Subtraction: (-)    |    Multiplication: (*)");
@@ -35,8 +39,7 @@ public class SmartCalculatorConsoleApp {
                     value2 = Integer.parseInt(input.nextLine());
                     result = value1 + value2;
                     System.out.print("Result: " + result);
-                    latestResults[i] = result;
-                    resultsDescription[i] = (value1 + " + " + value2);
+
                     i++;
                     break;
                 case '-':
@@ -112,11 +115,12 @@ public class SmartCalculatorConsoleApp {
 
     }
 
-    private static void dropOldestResult(int[] latestResults, String[] resultsDescription) {
+    private static int dropOldestResult(int[] latestResults, String[] resultsDescription) {
         for (int i = 0; i < latestResults.length - 1; i++) {
             latestResults[i] = latestResults[i+1];
             resultsDescription[i] = resultsDescription[i+1];
         }
+        return latestResults.length - 1;
     }
 
     private static void printHistory(int[] latestResults, String[] resultsDescription) {
@@ -185,4 +189,16 @@ public class SmartCalculatorConsoleApp {
         return key;
     }
 
+    private static int updateHistory(int[] latestResults, String[] resultsDescription,
+                                      int index, int calculationResult, String resultDesc) {
+        if (index < latestResults.length) {
+            latestResults[index] = calculationResult;
+            resultsDescription[index] = resultDesc;
+            return index + 1;
+        }
+        index = dropOldestResult(latestResults, resultsDescription);
+        latestResults[index] = calculationResult;
+        resultsDescription[index] = resultDesc;
+        return index + 1;
+    }
 }
