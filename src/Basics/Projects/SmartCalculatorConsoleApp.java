@@ -10,8 +10,7 @@ public class SmartCalculatorConsoleApp {
         Scanner input = new Scanner(System.in);
 
         System.out.println("Welcome to Smart-Calculator");
-        System.out.print("What should be the size of bucket to hold history of calculations: ");
-        int size = Integer.parseInt(input.nextLine());
+        int size = validateUserInput(input, " size of bucket to hold history of calculations");
         int[] latestResults = new int[size];
         String[] resultsDescription = new String[size];
 
