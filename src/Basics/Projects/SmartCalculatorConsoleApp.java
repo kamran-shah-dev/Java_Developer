@@ -47,9 +47,14 @@ public class SmartCalculatorConsoleApp {
                 if (i == 0) {
                     System.out.println("No calculations performed yet! Perform some calculations...");
                 } else {
-                    int lastAnswer = latestResults[i - 1];
+                    double lastAnswer = latestResults[i - 1];
+
                 }
             } else {
+                if (!validOperator(option)) {
+                    System.out.println("Invalid operator!!! Try again...");
+                    continue;
+                }
                 if (lastOperator == option) {
                     if (sameOperationCount == 2) {
                         result = calculateRunningTotal(input, latestResults[i - 1], option);
@@ -61,14 +66,9 @@ public class SmartCalculatorConsoleApp {
                 } else {
                     value1 = validateUserInput(input, "first number");
                     value2 = validateUserInput(input, "second number");
-                    String calculationResult = performCalculation(value1, value2, option);
-                    result = Integer.parseInt(calculationResult);
+                    int calculationResult = performCalculation(value1, value2, option);
                     description = (value1 + String.valueOf(option) + value2);
-                    if (calculationResult.charAt(0) == 'I') {
-                        System.out.println(calculationResult);
-                    } else {
-                        i = updateHistory(latestResults, resultsDescription, i, result, description);
-                    }
+                    i = updateHistory(latestResults, resultsDescription, i, calculationResult, description);
                 }
             }
             lastOperator = option;
@@ -148,7 +148,6 @@ public class SmartCalculatorConsoleApp {
             median = latestResults[midIndex];
         }
         average = sum / (double) filledArraySize;
-
         System.out.println("Sum: " + sum);
         System.out.println("Average: " + average);
         System.out.println("Minimum: " + min);
@@ -203,47 +202,29 @@ public class SmartCalculatorConsoleApp {
         return index + 1;
     }
 
-    private static int addNumbers(int x, int y) {
-        return x + y;
-    }
 
-    private static int subtractNumbers(int x, int y) {
-        return x - y;
-    }
-
-    private static int multiplyNumbers(int x, int y) {
-        return x * y;
-    }
-
-    private static int divideNumbers(int x, int y) {
-        return x / y;
-    }
-
-    private static int performModulus(int x, int y) {
-        return x % y;
-    }
-
-    private static int takePowerOfNumber(int x, int y) {
-        return (int) Math.pow(x, y);
-    }
-
-    private static String performCalculation (int operandOne, int operandTwo, char operator) {
+    private static int performCalculation (int operandOne, int operandTwo, char operator) {
         return switch (operator) {
-            case '+' -> Integer.toString(addNumbers(operandOne, operandTwo));
-            case '-'-> Integer.toString(subtractNumbers(operandOne, operandTwo));
-            case '*'-> Integer.toString(multiplyNumbers(operandOne, operandTwo));
-            case '/'-> Integer.toString(divideNumbers(operandOne, operandTwo));
-            case '%'-> Integer.toString(performModulus(operandOne, operandTwo));
-            case '^'-> Integer.toString(takePowerOfNumber(operandOne, operandTwo));
-            default-> "Invalid Operator! Try Again...";
+            case '+' -> operandOne + operandTwo;
+            case '-' -> operandOne - operandTwo;
+            case '*' -> operandOne * operandTwo;
+            case '/' -> operandOne / operandTwo;
+            case '%' -> operandOne % operandTwo;
+            case '^' -> operandOne ^ operandTwo;
+            default -> throw new IllegalStateException("Unexpected value: " + operator);
         };
+    }
+
+    private static boolean validOperator(char operator) {
+        return operator == '+' || operator == '-' || operator == '*' ||
+                operator == '/' || operator == '%' || operator == '^';
     }
 
     private static int calculateRunningTotal(Scanner input, int lastResult, char operator) {
         int runningTotal = lastResult;
         do {
             int next = validateUserInput(input, " next number");
-            runningTotal = Integer.parseInt(performCalculation(runningTotal, next , operator));
+            runningTotal = performCalculation(runningTotal, next , operator);
             System.out.print("Another number (Y/N): ");
         } while (!input.nextLine().equalsIgnoreCase("n"));
         return runningTotal;
