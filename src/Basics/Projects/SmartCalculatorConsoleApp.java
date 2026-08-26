@@ -105,8 +105,9 @@ public class SmartCalculatorConsoleApp {
                 case '/':
                     if (divPerformed == 3) {
                         int runningTotal = latestResults[i - 1];
+                        System.out.println("Running total for division. Keep entering divisor...");
                         do {
-                            int next = validateUserInput(input, " next divisor");
+                            int next = validateUserInput(input, "divisor");
                             runningTotal = divideNumbers(runningTotal, next);
                             System.out.print("Another number (Y/N): ");
                         } while (!input.nextLine().equalsIgnoreCase("n"));
@@ -127,8 +128,9 @@ public class SmartCalculatorConsoleApp {
                 case '%':
                     if (modPerformed == 3) {
                         int runningTotal = latestResults[i - 1];
+                        System.out.println("Running total for modulus. Keep entering divisor...");
                         do {
-                            int next = validateUserInput(input, " next divisor");
+                            int next = validateUserInput(input, "divisor");
                             runningTotal = performModulus(runningTotal, next);
                             System.out.print("Another number (Y/N): ");
                         } while (!input.nextLine().equalsIgnoreCase("n"));
@@ -175,6 +177,10 @@ public class SmartCalculatorConsoleApp {
                     printSummaryStatistics(latestResults, resultsDescription);
                     break;
                 case 'a':
+                    if (i == 0) {
+                        System.out.println("No calculations performed yet! Perform some calculations...");
+                        break;
+                    }
                     int lastAnswer = latestResults[i - 1];
                     while (true) {
                         System.out.print("What operation you want to perform with ans: ");
