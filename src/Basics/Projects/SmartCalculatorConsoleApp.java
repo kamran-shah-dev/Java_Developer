@@ -47,11 +47,19 @@ public class SmartCalculatorConsoleApp {
                 if (i == 0) {
                     System.out.println("No calculations performed yet! Perform some calculations...");
                 } else {
-                    double lastAnswer = latestResults[i - 1];
-
+                    int lastAnswer = latestResults[i - 1];
+                    do  {
+                        System.out.print("What you want to perform with last result: ");
+                        option = input.nextLine().charAt(0);
+                    } while ((validOperator(option)));
+                    value1 = validateUserInput(input, " X (" + lastAnswer + option + " X)");
+                    int calculationResult = performCalculation(lastAnswer, value1, option);
+                    System.out.println("Result: " + calculationResult);
+                    description = (lastAnswer + String.valueOf(option) + value1);
+                    i = updateHistory(latestResults, resultsDescription, i, calculationResult, description);
                 }
             } else {
-                if (!validOperator(option)) {
+                if (validOperator(option)) {
                     System.out.println("Invalid operator!!! Try again...");
                     continue;
                 }
@@ -59,6 +67,7 @@ public class SmartCalculatorConsoleApp {
                     if (sameOperationCount == 2) {
                         result = calculateRunningTotal(input, latestResults[i - 1], option);
                         description = "Running total of " + option;
+                        System.out.println("Running Total Result: " + result);
                         i = updateHistory(latestResults, resultsDescription, i, result , description);
                     } else {
                         sameOperationCount++;
@@ -67,6 +76,7 @@ public class SmartCalculatorConsoleApp {
                     value1 = validateUserInput(input, "first number");
                     value2 = validateUserInput(input, "second number");
                     int calculationResult = performCalculation(value1, value2, option);
+                    System.out.println("Result: " + calculationResult);
                     description = (value1 + String.valueOf(option) + value2);
                     i = updateHistory(latestResults, resultsDescription, i, calculationResult, description);
                 }
@@ -216,8 +226,8 @@ public class SmartCalculatorConsoleApp {
     }
 
     private static boolean validOperator(char operator) {
-        return operator == '+' || operator == '-' || operator == '*' ||
-                operator == '/' || operator == '%' || operator == '^';
+        return operator != '+' && operator != '-' && operator != '*' &&
+                operator != '/' && operator != '%' && operator != '^';
     }
 
     private static int calculateRunningTotal(Scanner input, int lastResult, char operator) {
