@@ -207,14 +207,16 @@ public class SmartCalculatorConsoleApp {
                             i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                             break;
                         } else if (option == '/') {
-                            value1 = validateUserInput(input, " X (ans / X)");
+                            System.out.println("ans % X (X is divisor)");
+                            value1 = validateUserInput(input, "divisor");
                             result = divideNumbers(lastAnswer, value1);
                             System.out.println("Result: " + result);
                             resultDescription = (lastAnswer + " / " + value1);
                             i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
                             break;
                         } else if (option == '%') {
-                            value1 = validateUserInput(input, " X (ans % X)");
+                            System.out.println("ans % X (X is divisor)");
+                            value1 = validateUserInput(input, "divisor");
                             result = performModulus(lastAnswer, value1);
                             System.out.println("Result: " + result);
                             resultDescription = (lastAnswer + " % " + value1);
