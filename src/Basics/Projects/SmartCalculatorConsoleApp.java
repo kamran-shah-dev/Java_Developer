@@ -35,7 +35,7 @@ public class SmartCalculatorConsoleApp {
                 case '+':
                     value1 = validateUserInput(input, "First");
                     value2 = validateUserInput(input, "Second");
-                    result = value1 + value2;
+                    result = addNumbers(value1, value2);
                     System.out.println("Result: " + result);
                     resultDescription = (value1 + " + " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
@@ -43,7 +43,7 @@ public class SmartCalculatorConsoleApp {
                 case '-':
                     value1 = validateUserInput(input, "First");
                     value2 = validateUserInput(input, "Second");
-                    result = value1 - value2;
+                    result = subtractNumbers(value1, value2);
                     System.out.println("Result: " + result);
                     resultDescription = (value1 + " - " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
@@ -51,7 +51,7 @@ public class SmartCalculatorConsoleApp {
                 case '*':
                     value1 = validateUserInput(input, "First");
                     value2 = validateUserInput(input, "Second");
-                    result = value1 * value2;
+                    result = multiplyNumbers(value1, value2);
                     System.out.println("Result: " + result);
                     resultDescription = (value1 + " * " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
@@ -59,7 +59,7 @@ public class SmartCalculatorConsoleApp {
                 case '/':
                     value1 = validateUserInput(input, "dividend");
                     value2 = validateUserInput(input, "divisor");
-                    result = value1 / value2;
+                    result = divideNumbers(value1, value2);
                     System.out.println("Result: " + result);
                     resultDescription = (value1 + " / " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
@@ -67,7 +67,7 @@ public class SmartCalculatorConsoleApp {
                 case '%':
                     value1 = validateUserInput(input, "dividend");
                     value2 = validateUserInput(input, "divisor");
-                    result = value1 % value2;
+                    result = performModulus(value1, value2);
                     System.out.println("Result: " + result);
                     resultDescription = (value1 + " % " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
@@ -75,7 +75,7 @@ public class SmartCalculatorConsoleApp {
                 case '^':
                     value1 = validateUserInput(input, "First");
                     value2 = validateUserInput(input, "Second");
-                    result = (int) Math.pow(value1, value2);
+                    result = takePowerOfNumber(value1, value2);
                     System.out.println("Result: " + result);
                     resultDescription = (value1 + " ^ " + value2);
                     i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
@@ -87,7 +87,56 @@ public class SmartCalculatorConsoleApp {
                     printSummaryStatistics(latestResults, resultsDescription);
                     break;
                 case 'a':
-                    System.out.println("Perform something with last answer");
+                    int lastAnswer = latestResults[i - 1];
+                    while (true) {
+                        System.out.print("What operation you want to perform with ans: ");
+                        option = input.nextLine().charAt(0);
+                        if (option == '+') {
+                            value1 = validateUserInput(input, " X (ans + X)");
+                            result = addNumbers(lastAnswer, value1);
+                            System.out.println("Result: " + result);
+                            resultDescription = (lastAnswer + " + " + value1);
+                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
+                            break;
+                        } else if (option == '-') {
+                            value1 = validateUserInput(input, " X (ans - X)");
+                            result = subtractNumbers(lastAnswer, value1);
+                            System.out.println("Result: " + result);
+                            resultDescription = (lastAnswer + " - " + value1);
+                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
+                            break;
+                        } else if (option == '*') {
+                            value1 = validateUserInput(input, " X (ans * X)");
+                            result = multiplyNumbers(lastAnswer, value1);
+                            System.out.println("Result: " + result);
+                            resultDescription = (lastAnswer + " x " + value1);
+                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
+                            break;
+                        } else if (option == '/') {
+                            value1 = validateUserInput(input, " X (ans / X)");
+                            result = divideNumbers(lastAnswer, value1);
+                            System.out.println("Result: " + result);
+                            resultDescription = (lastAnswer + " / " + value1);
+                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
+                            break;
+                        } else if (option == '%') {
+                            value1 = validateUserInput(input, " X (ans % X)");
+                            result = performModulus(lastAnswer, value1);
+                            System.out.println("Result: " + result);
+                            resultDescription = (lastAnswer + " % " + value1);
+                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
+                            break;
+                        } else if (option == '^') {
+                            value1 = validateUserInput(input, " X (ans ^ X)");
+                            result = takePowerOfNumber(lastAnswer, value1);
+                            System.out.println("Result: " + result);
+                            resultDescription = (lastAnswer + " ^ " + value1);
+                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
+                            break;
+                        } else {
+                            System.out.println("Enter a valid operator! Try again...");
+                        }
+                    }
                     break;
                 default:
                     System.out.println("Invalid input");
@@ -222,5 +271,29 @@ public class SmartCalculatorConsoleApp {
         latestResults[index] = calculationResult;
         resultsDescription[index] = resultDesc;
         return index + 1;
+    }
+
+    private static int addNumbers(int x, int y) {
+        return x + y;
+    }
+
+    private static int subtractNumbers(int x, int y) {
+        return x - y;
+    }
+
+    private static int multiplyNumbers(int x, int y) {
+        return x * y;
+    }
+
+    private static int divideNumbers(int x, int y) {
+        return x / y;
+    }
+
+    private static int performModulus(int x, int y) {
+        return x % y;
+    }
+
+    private static int takePowerOfNumber(int x, int y) {
+        return (int) Math.pow(x, y);
     }
 }
