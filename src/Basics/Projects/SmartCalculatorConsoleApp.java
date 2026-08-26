@@ -21,9 +21,9 @@ public class SmartCalculatorConsoleApp {
         System.out.println("Calculation History: (h)                  |    Summary: (s)");
         System.out.println("Use Last Answer: (ans)");
         System.out.println("Close the application: (Exit)");
-        byte addPerformed, subPerformed, mulPerformed , divPerformed, modPerformed, powPerformed;
-        addPerformed = subPerformed = mulPerformed = divPerformed = modPerformed = powPerformed = 0;
 
+        char lastOperator = 0;
+        int sameOperationCount = 0;
         int i = 0;
         while (true) {
             System.out.print("What operation do you want to perform: ");
@@ -32,212 +32,46 @@ public class SmartCalculatorConsoleApp {
                 break;
             }
             char option = choice.charAt(0);
-            int value1, value2, result;
+            int value1, value2 , result;
+            String description;
 
-            String resultDescription;
-            switch (option) {
-                case '+':
-                    if (addPerformed == 3) {
-                        int runningTotal = latestResults[i - 1];
-                        do {
-                            int next = validateUserInput(input, " next number");
-                            runningTotal = addNumbers(runningTotal, next);
-                            System.out.print("Another number (Y/N): ");
-                        } while (!input.nextLine().equalsIgnoreCase("n"));
-                        System.out.println("Running total: " + runningTotal);
-                        i = updateHistory(latestResults, resultsDescription, i, runningTotal, "Addition Running Total");
-                        addPerformed = 0;
-                    } else {
-                        value1 = validateUserInput(input, "First");
-                        value2 = validateUserInput(input, "Second");
-                        result = addNumbers(value1, value2);
-                        System.out.println("Result: " + result);
-                        resultDescription = (value1 + " + " + value2);
-                        i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                        addPerformed++;
-                        subPerformed = mulPerformed = divPerformed = modPerformed = powPerformed = 0;
-                    }
-                    break;
-                case '-':
-                    if (subPerformed == 3) {
-                        int runningTotal = latestResults[i - 1];
-                        do {
-                            int next = validateUserInput(input, " next number");
-                            runningTotal = subtractNumbers(runningTotal, next);
-                            System.out.print("Another number (Y/N): ");
-                        } while (!input.nextLine().equalsIgnoreCase("n"));
-                        System.out.println("Subtraction Running total: " + runningTotal);
-                        i = updateHistory(latestResults, resultsDescription, i, runningTotal, "Subtraction Running Total");
-                        subPerformed = 0;
-                    } else {
-                        value1 = validateUserInput(input, "First");
-                        value2 = validateUserInput(input, "Second");
-                        result = subtractNumbers(value1, value2);
-                        System.out.println("Result: " + result);
-                        resultDescription = (value1 + " - " + value2);
-                        i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                        subPerformed++;
-                        addPerformed = mulPerformed = divPerformed = modPerformed = powPerformed = 0;
-                    }
-                    break;
-                case '*':
-                    if (mulPerformed == 3) {
-                        int runningTotal = latestResults[i - 1];
-                        do {
-                            int next = validateUserInput(input, " next number");
-                            runningTotal = multiplyNumbers(runningTotal, next);
-                            System.out.print("Another number (Y/N): ");
-                        } while (!input.nextLine().equalsIgnoreCase("n"));
-                        System.out.println("Multiplication Running total: " + runningTotal);
-                        i = updateHistory(latestResults, resultsDescription, i, runningTotal, "Multiplication Running Total");
-                        mulPerformed = 0;
-                    } else {
-                        value1 = validateUserInput(input, "First");
-                        value2 = validateUserInput(input, "Second");
-                        result = multiplyNumbers(value1, value2);
-                        System.out.println("Result: " + result);
-                        resultDescription = (value1 + " * " + value2);
-                        i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                        mulPerformed++;
-                        addPerformed = subPerformed = divPerformed = modPerformed = powPerformed = 0;
-                    }
-                    break;
-                case '/':
-                    if (divPerformed == 3) {
-                        int runningTotal = latestResults[i - 1];
-                        System.out.println("Running total for division. Keep entering divisor...");
-                        do {
-                            int next = validateUserInput(input, "divisor");
-                            runningTotal = divideNumbers(runningTotal, next);
-                            System.out.print("Another number (Y/N): ");
-                        } while (!input.nextLine().equalsIgnoreCase("n"));
-                        System.out.println("Division Running total: " + runningTotal);
-                        i = updateHistory(latestResults, resultsDescription, i, runningTotal, "Division Running Total");
-                        divPerformed = 0;
-                    } else {
-                        value1 = validateUserInput(input, "dividend");
-                        value2 = validateUserInput(input, "divisor");
-                        result = divideNumbers(value1, value2);
-                        System.out.println("Result: " + result);
-                        resultDescription = (value1 + " / " + value2);
-                        i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                        divPerformed++;
-                        addPerformed = subPerformed = mulPerformed = modPerformed = powPerformed = 0;
-                    }
-                    break;
-                case '%':
-                    if (modPerformed == 3) {
-                        int runningTotal = latestResults[i - 1];
-                        System.out.println("Running total for modulus. Keep entering divisor...");
-                        do {
-                            int next = validateUserInput(input, "divisor");
-                            runningTotal = performModulus(runningTotal, next);
-                            System.out.print("Another number (Y/N): ");
-                        } while (!input.nextLine().equalsIgnoreCase("n"));
-                        System.out.println("Modulus Running total: " + runningTotal);
-                        i = updateHistory(latestResults, resultsDescription, i, runningTotal, "Modulus Running Total");
-                        modPerformed = 0;
-                    } else {
-                        value1 = validateUserInput(input, "dividend");
-                        value2 = validateUserInput(input, "divisor");
-                        result = performModulus(value1, value2);
-                        System.out.println("Result: " + result);
-                        resultDescription = (value1 + " % " + value2);
-                        i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                        modPerformed++;
-                        addPerformed = subPerformed = mulPerformed = divPerformed = powPerformed = 0;
-                    }
-                    break;
-                case '^':
-                    if (powPerformed == 3) {
-                        int runningTotal = latestResults[i - 1];
-                        do {
-                            int next = validateUserInput(input, " next exponent");
-                            runningTotal = takePowerOfNumber(runningTotal, next);
-                            System.out.print("Another number (Y/N): ");
-                        } while (!input.nextLine().equalsIgnoreCase("n"));
-                        System.out.println("Power Running total: " + runningTotal);
-                        i = updateHistory(latestResults, resultsDescription, i, runningTotal, "Power Running Total");
-                        powPerformed = 0;
-                    } else {
-                        value1 = validateUserInput(input, "First");
-                        value2 = validateUserInput(input, "Second");
-                        result = takePowerOfNumber(value1, value2);
-                        System.out.println("Result: " + result);
-                        resultDescription = (value1 + " ^ " + value2);
-                        i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                        powPerformed++;
-                        addPerformed = subPerformed = mulPerformed = divPerformed = modPerformed = 0;
-                    }
-                    break;
-                case 'h':
+            if (option == 'h') {
+                if (i == 0) {
+                    System.out.println("No calculations yet! Perform some calculations...");
+                } else {
                     printHistory(latestResults, resultsDescription);
-                    break;
-                case 's':
-                    printSummaryStatistics(latestResults, resultsDescription);
-                    break;
-                case 'a':
-                    if (i == 0) {
-                        System.out.println("No calculations performed yet! Perform some calculations...");
-                        break;
-                    }
+                }
+            } else if (option == 's') {
+                printSummaryStatistics(latestResults, resultsDescription);
+            } else if (option == 'a') {
+                if (i == 0) {
+                    System.out.println("No calculations performed yet! Perform some calculations...");
+                } else {
                     int lastAnswer = latestResults[i - 1];
-                    while (true) {
-                        System.out.print("What operation you want to perform with ans: ");
-                        option = input.nextLine().charAt(0);
-                        if (option == '+') {
-                            value1 = validateUserInput(input, " X (ans + X)");
-                            result = addNumbers(lastAnswer, value1);
-                            System.out.println("Result: " + result);
-                            resultDescription = (lastAnswer + " + " + value1);
-                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                            break;
-                        } else if (option == '-') {
-                            value1 = validateUserInput(input, " X (ans - X)");
-                            result = subtractNumbers(lastAnswer, value1);
-                            System.out.println("Result: " + result);
-                            resultDescription = (lastAnswer + " - " + value1);
-                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                            break;
-                        } else if (option == '*') {
-                            value1 = validateUserInput(input, " X (ans * X)");
-                            result = multiplyNumbers(lastAnswer, value1);
-                            System.out.println("Result: " + result);
-                            resultDescription = (lastAnswer + " x " + value1);
-                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                            break;
-                        } else if (option == '/') {
-                            System.out.println("ans % X (X is divisor)");
-                            value1 = validateUserInput(input, "divisor");
-                            result = divideNumbers(lastAnswer, value1);
-                            System.out.println("Result: " + result);
-                            resultDescription = (lastAnswer + " / " + value1);
-                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                            break;
-                        } else if (option == '%') {
-                            System.out.println("ans % X (X is divisor)");
-                            value1 = validateUserInput(input, "divisor");
-                            result = performModulus(lastAnswer, value1);
-                            System.out.println("Result: " + result);
-                            resultDescription = (lastAnswer + " % " + value1);
-                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                            break;
-                        } else if (option == '^') {
-                            value1 = validateUserInput(input, " X (ans ^ X)");
-                            result = takePowerOfNumber(lastAnswer, value1);
-                            System.out.println("Result: " + result);
-                            resultDescription = (lastAnswer + " ^ " + value1);
-                            i = updateHistory(latestResults, resultsDescription, i, result, resultDescription);
-                            break;
-                        } else {
-                            System.out.println("Enter a valid operator! Try again...");
-                        }
+                }
+            } else {
+                if (lastOperator == option) {
+                    if (sameOperationCount == 2) {
+                        result = calculateRunningTotal(input, latestResults[i - 1], option);
+                        description = "Running total of " + option;
+                        i = updateHistory(latestResults, resultsDescription, i, result , description);
+                    } else {
+                        sameOperationCount++;
                     }
-                    break;
-                default:
-                    System.out.println("Invalid input");
-                    break;
+                } else {
+                    value1 = validateUserInput(input, "first number");
+                    value2 = validateUserInput(input, "second number");
+                    String calculationResult = performCalculation(value1, value2, option);
+                    result = Integer.parseInt(calculationResult);
+                    description = (value1 + String.valueOf(option) + value2);
+                    if (calculationResult.charAt(0) == 'I') {
+                        System.out.println(calculationResult);
+                    } else {
+                        i = updateHistory(latestResults, resultsDescription, i, result, description);
+                    }
+                }
             }
+            lastOperator = option;
         }
 
     }
@@ -393,26 +227,25 @@ public class SmartCalculatorConsoleApp {
         return (int) Math.pow(x, y);
     }
 
-    private static int performCalculation (int operandOne, int operandTwo, char operator) {
-        int result = 0;
-        switch (operator) {
-            case '+':
-                result = addNumbers(operandOne, operandTwo);
-            case '-':
-                result = subtractNumbers(operandOne, operandTwo);
-            case '*':
-                result = multiplyNumbers(operandOne, operandTwo);
-            case '/':
-                result = divideNumbers(operandOne, operandTwo);
-            case '%':
-                result = performModulus(operandOne, operandTwo);
-            case '^':
-                result = takePowerOfNumber(operandOne, operandTwo);
-        }
-        return result;
+    private static String performCalculation (int operandOne, int operandTwo, char operator) {
+        return switch (operator) {
+            case '+' -> Integer.toString(addNumbers(operandOne, operandTwo));
+            case '-'-> Integer.toString(subtractNumbers(operandOne, operandTwo));
+            case '*'-> Integer.toString(multiplyNumbers(operandOne, operandTwo));
+            case '/'-> Integer.toString(divideNumbers(operandOne, operandTwo));
+            case '%'-> Integer.toString(performModulus(operandOne, operandTwo));
+            case '^'-> Integer.toString(takePowerOfNumber(operandOne, operandTwo));
+            default-> "Invalid Operator! Try Again...";
+        };
     }
 
-//    private static int calculateRunningTotal(int lastResult, char operator) {
-//
-//    }
+    private static int calculateRunningTotal(Scanner input, int lastResult, char operator) {
+        int runningTotal = lastResult;
+        do {
+            int next = validateUserInput(input, " next number");
+            runningTotal = Integer.parseInt(performCalculation(runningTotal, next , operator));
+            System.out.print("Another number (Y/N): ");
+        } while (!input.nextLine().equalsIgnoreCase("n"));
+        return runningTotal;
+    }
 }
