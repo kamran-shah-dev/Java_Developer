@@ -392,4 +392,27 @@ public class SmartCalculatorConsoleApp {
     private static int takePowerOfNumber(int x, int y) {
         return (int) Math.pow(x, y);
     }
+
+    private static int performCalculation (int operandOne, int operandTwo, char operator) {
+        int result = 0;
+        switch (operator) {
+            case '+':
+                result = addNumbers(operandOne, operandTwo);
+            case '-':
+                result = subtractNumbers(operandOne, operandTwo);
+            case '*':
+                result = multiplyNumbers(operandOne, operandTwo);
+            case '/':
+                result = divideNumbers(operandOne, operandTwo);
+            case '%':
+                result = performModulus(operandOne, operandTwo);
+            case '^':
+                result = takePowerOfNumber(operandOne, operandTwo);
+        }
+        return result;
+    }
+
+//    private static int calculateRunningTotal(int lastResult, char operator) {
+//
+//    }
 }
