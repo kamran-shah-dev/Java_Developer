@@ -34,6 +34,7 @@ public class SmartCalculatorConsoleApp {
             char option = choice.charAt(0);
             int value1, value2;
             String description;
+            String firstValueDesc, secondValueDesc;
 
             if (option == 'h') {
                 if (i == 0) {
@@ -63,6 +64,8 @@ public class SmartCalculatorConsoleApp {
                     System.out.println("Invalid operator!!! Try again...");
                     continue;
                 }
+                firstValueDesc = (option == '/' || option == '%') ? "dividend" : option == '^' ? "base" : "first number";
+                secondValueDesc = (option == '/' || option == '%') ? "divisor" : option == '^' ? "exponent" : "second number";
                 if (lastOperator == option) {
                     if (sameOperationCount == 2) {
                         System.out.println("Looks like you are doing many " +
@@ -82,16 +85,16 @@ public class SmartCalculatorConsoleApp {
                         i = updateHistory(latestResults, resultsDescription, i, runningTotal , description);
                     } else {
                         sameOperationCount++;
-                        value1 = validateUserInput(input, "first number");
-                        value2 = validateUserInput(input, "second number");
+                        value1 = validateUserInput(input, firstValueDesc);
+                        value2 = validateUserInput(input, secondValueDesc);
                         int calculationResult = performCalculation(value1, value2, option);
                         System.out.println("Result: " + calculationResult);
                         description = (value1 + String.valueOf(option) + value2);
                         i = updateHistory(latestResults, resultsDescription, i, calculationResult, description);
                     }
                 } else {
-                    value1 = validateUserInput(input, "first number");
-                    value2 = validateUserInput(input, "second number");
+                    value1 = validateUserInput(input, firstValueDesc);
+                    value2 = validateUserInput(input, secondValueDesc);
                     int calculationResult = performCalculation(value1, value2, option);
                     System.out.println("Result: " + calculationResult);
                     description = (value1 + String.valueOf(option) + value2);
@@ -249,8 +252,9 @@ public class SmartCalculatorConsoleApp {
 
     private static int calculateRunningTotal(Scanner input, int lastResult, char operator) {
         int runningTotal = lastResult;
+        String requiredInputDesc = (operator == '/' || operator == '%') ? "divisor" : operator == '^' ? "exponent" : "next number";
         do {
-            int next = validateUserInput(input, " next number");
+            int next = validateUserInput(input, requiredInputDesc);
             runningTotal = performCalculation(runningTotal, next , operator);
             System.out.print("Another number (Y/N): ");
         } while (!input.nextLine().equalsIgnoreCase("n"));
