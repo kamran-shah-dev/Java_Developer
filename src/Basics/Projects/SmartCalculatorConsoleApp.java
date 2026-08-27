@@ -32,7 +32,7 @@ public class SmartCalculatorConsoleApp {
                 break;
             }
             char option = choice.charAt(0);
-            int value1, value2 , result;
+            int value1, value2;
             String description;
 
             if (option == 'h') {
@@ -65,12 +65,29 @@ public class SmartCalculatorConsoleApp {
                 }
                 if (lastOperator == option) {
                     if (sameOperationCount == 2) {
-                        result = calculateRunningTotal(input, latestResults[i - 1], option);
+                        System.out.println("Looks like you are doing many " +
+                                (option == '+' ? "Additions" : (option == '-' ? "Subtraction" :
+                                        (option == '*' ? "Multiplication" :
+                                                (option == '/' ? "Division" : option == '%' ? "Modulus" : "Power Calculations")))));
+                        System.out.println("Calculate a running total by entering next number..");
+                        int runningTotal = 0;
+                        for (int j = 0; j < filledCount(resultsDescription); j++) {
+                            if (resultsDescription[j].contains(Character.toString(lastOperator))) {
+                                runningTotal += latestResults[j];
+                            }
+                        }
+                        runningTotal = calculateRunningTotal(input, runningTotal, option);
                         description = "Running total of " + option;
-                        System.out.println("Running Total Result: " + result);
-                        i = updateHistory(latestResults, resultsDescription, i, result , description);
+                        System.out.println("Running Total Result: " + runningTotal);
+                        i = updateHistory(latestResults, resultsDescription, i, runningTotal , description);
                     } else {
                         sameOperationCount++;
+                        value1 = validateUserInput(input, "first number");
+                        value2 = validateUserInput(input, "second number");
+                        int calculationResult = performCalculation(value1, value2, option);
+                        System.out.println("Result: " + calculationResult);
+                        description = (value1 + String.valueOf(option) + value2);
+                        i = updateHistory(latestResults, resultsDescription, i, calculationResult, description);
                     }
                 } else {
                     value1 = validateUserInput(input, "first number");
