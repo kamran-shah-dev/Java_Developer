@@ -4,16 +4,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * A console-based smart calculator application supporting basic arithmetic,
+ * operation history tracking, summary statistics (min, max, mean, median, mode),
+ * and consecutive operation shortcuts.
+ */
 public class SmartCalculatorConsoleApp {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
         System.out.println("Welcome to Smart-Calculator");
+        // Prompt user to define the storage capacity for history tracking
         int size = validateUserInput(input, " size of bucket to hold history of calculations");
         int[] latestResults = new int[size];
         String[] resultsDescription = new String[size];
 
+        // Display user guide and command reference
         System.out.println("How to use.");
         System.out.println("Commands");
         System.out.println("Addition: (+)    |    Subtraction: (-)    |    Multiplication: (*)");
@@ -24,10 +31,13 @@ public class SmartCalculatorConsoleApp {
 
         char lastOperator = 0;
         int sameOperationCount = 0;
-        int i = 0;
+        int i = 0; // Tracks current history index/count
+
         while (true) {
             System.out.print("What operation do you want to perform: ");
             String choice = input.nextLine();
+
+            // Exit condition
             if (choice.equalsIgnoreCase("exit")) {
                 break;
             }
@@ -36,15 +46,20 @@ public class SmartCalculatorConsoleApp {
             String description;
             String firstValueDesc, secondValueDesc;
 
+            // Handle history display request
             if (option == 'h') {
                 if (i == 0) {
                     System.out.println("No calculations yet! Perform some calculations...");
                 } else {
                     printHistory(latestResults, resultsDescription);
                 }
-            } else if (option == 's') {
+            }
+            // Handle summary statistics request
+            else if (option == 's') {
                 printSummaryStatistics(latestResults, resultsDescription);
-            } else if (option == 'a') {
+            }
+            // Handle "use last answer" ('a' or 'ans' prefix) request
+            else if (option == 'a') {
                 if (i == 0) {
                     System.out.println("No calculations performed yet! Perform some calculations...");
                 } else {
@@ -53,19 +68,26 @@ public class SmartCalculatorConsoleApp {
                         System.out.print("What you want to perform with last result: ");
                         option = input.nextLine().charAt(0);
                     } while ((validOperator(option)));
+
                     value1 = validateUserInput(input, " X (" + lastAnswer + option + " X)");
                     int calculationResult = performCalculation(lastAnswer, value1, option);
                     System.out.println("Result: " + calculationResult);
                     description = (lastAnswer + String.valueOf(option) + value1);
                     i = updateHistory(latestResults, resultsDescription, i, calculationResult, description);
                 }
-            } else {
+            }
+            // Handle standard arithmetic operations
+            else {
                 if (validOperator(option)) {
                     System.out.println("Invalid operator!!! Try again...");
                     continue;
                 }
+
+                // Dynamically label inputs based on the chosen operator
                 firstValueDesc = (option == '/' || option == '%') ? "dividend" : option == '^' ? "base" : "first number";
                 secondValueDesc = (option == '/' || option == '%') ? "divisor" : option == '^' ? "exponent" : "second number";
+
+                // Detect consecutive uses of the same operator for chain/running calculations
                 if (lastOperator == option) {
                     if (sameOperationCount == 2) {
                         System.out.println("Looks like you are doing many " +
@@ -73,6 +95,7 @@ public class SmartCalculatorConsoleApp {
                                         (option == '*' ? "Multiplication" :
                                                 (option == '/' ? "Division" : option == '%' ? "Modulus" : "Power Calculations")))));
                         System.out.println("Calculate a running total by entering next number..");
+
                         int runningTotal = 0;
                         for (int j = 0; j < filledCount(resultsDescription); j++) {
                             if (resultsDescription[j].contains(Character.toString(lastOperator))) {
@@ -93,6 +116,7 @@ public class SmartCalculatorConsoleApp {
                         i = updateHistory(latestResults, resultsDescription, i, calculationResult, description);
                     }
                 } else {
+                    sameOperationCount = 0;
                     value1 = validateUserInput(input, firstValueDesc);
                     value2 = validateUserInput(input, secondValueDesc);
                     int calculationResult = performCalculation(value1, value2, option);
@@ -103,9 +127,12 @@ public class SmartCalculatorConsoleApp {
             }
             lastOperator = option;
         }
-
     }
 
+    /**
+     * Continuously prompts the user until a valid integer is entered,
+     * with special handling to prevent division by zero.
+     */
     private static int validateUserInput(Scanner input, String requiredInput) {
         while (true) {
             System.out.print("Enter the " + requiredInput + ": ");
@@ -123,6 +150,9 @@ public class SmartCalculatorConsoleApp {
         }
     }
 
+    /**
+     * Checks whether a given string can be successfully parsed into an integer.
+     */
     private static boolean isValidNumber(String firstNumber) {
         if (firstNumber == null) {
             return false;
@@ -135,6 +165,9 @@ public class SmartCalculatorConsoleApp {
         }
     }
 
+    /**
+     * Shifts historical arrays to the left when capacity is reached (FIFO queue behavior).
+     */
     private static int dropOldestResult(int[] latestResults, String[] resultsDescription) {
         for (int i = 0; i < latestResults.length - 1; i++) {
             latestResults[i] = latestResults[i + 1];
@@ -143,12 +176,19 @@ public class SmartCalculatorConsoleApp {
         return latestResults.length - 1;
     }
 
+    /**
+     * Prints all recorded calculation expressions and their corresponding results.
+     */
     private static void printHistory(int[] latestResults, String[] resultsDescription) {
         for (int i = 0; i < filledCount(resultsDescription); i++) {
             System.out.println(resultsDescription[i] + " = " + latestResults[i]);
         }
     }
 
+    /**
+     * Computes and prints summary statistics (sum, average, min, max, median, mode)
+     * based on current calculation history.
+     */
     private static void printSummaryStatistics(int[] latestResults, String[] resultsDescription) {
         int sum = 0;
         double average;
@@ -157,10 +197,12 @@ public class SmartCalculatorConsoleApp {
         double median;
         int mode;
         int filledArraySize = filledCount(resultsDescription);
+
         if (filledArraySize == 0) {
             System.out.println("No calculations yet. Perform some calculations..");
             return;
         }
+
         for (int i = 0; i < filledArraySize; i++) {
             sum += latestResults[i];
             if (min > latestResults[i]) {
@@ -170,6 +212,7 @@ public class SmartCalculatorConsoleApp {
                 max = latestResults[i];
             }
         }
+
         mode = modeValue(latestResults, filledArraySize);
         int midIndex = filledArraySize / 2;
         if (filledArraySize % 2 == 0) {
@@ -178,6 +221,7 @@ public class SmartCalculatorConsoleApp {
             median = latestResults[midIndex];
         }
         average = sum / (double) filledArraySize;
+
         System.out.println("Sum: " + sum);
         System.out.println("Average: " + average);
         System.out.println("Minimum: " + min);
@@ -186,6 +230,9 @@ public class SmartCalculatorConsoleApp {
         System.out.println("Mode: " + mode);
     }
 
+    /**
+     * Counts how many entries are currently populated in the history description array.
+     */
     private static int filledCount(String[] resultsDescription) {
         int size = 0;
         while (size < resultsDescription.length && resultsDescription[size] != null) {
@@ -194,16 +241,12 @@ public class SmartCalculatorConsoleApp {
         return size;
     }
 
+    /**
+     * Calculates the statistical mode (most frequently occurring value) from results.
+     */
     private static int modeValue(int[] latestResults, int filledArraySize) {
         HashMap<Integer, Integer> valueCount = new HashMap<>();
         for (int i = 0; i < filledArraySize; i++) {
-            /* Traditional Way
-            if (valueCount.containsKey(number)) {
-                valueCount.put(number, valueCount.getOrDefault(number, 0) + 1);
-            }
-            */
-
-            // One-liner
             valueCount.merge(latestResults[i], 1, Integer::sum);
         }
 
@@ -219,6 +262,10 @@ public class SmartCalculatorConsoleApp {
         return key;
     }
 
+    /**
+     * Inserts a new calculation result and description into history,
+     * evicting the oldest entry if capacity is exceeded.
+     */
     private static int updateHistory(int[] latestResults, String[] resultsDescription,
                                      int index, int calculationResult, String resultDesc) {
         if (index < latestResults.length) {
@@ -232,30 +279,38 @@ public class SmartCalculatorConsoleApp {
         return index + 1;
     }
 
-
-    private static int performCalculation (int operandOne, int operandTwo, char operator) {
+    /**
+     * Executes the appropriate arithmetic operation on two operands.
+     */
+    private static int performCalculation(int operandOne, int operandTwo, char operator) {
         return switch (operator) {
             case '+' -> operandOne + operandTwo;
             case '-' -> operandOne - operandTwo;
             case '*' -> operandOne * operandTwo;
             case '/' -> operandOne / operandTwo;
             case '%' -> operandOne % operandTwo;
-            case '^' -> operandOne ^ operandTwo;
+            case '^' -> (int) Math.pow(operandOne, operandTwo); // Bitwise XOR replaced with proper power calculation
             default -> throw new IllegalStateException("Unexpected value: " + operator);
         };
     }
 
+    /**
+     * Validates if the entered character corresponds to a supported operator.
+     */
     private static boolean validOperator(char operator) {
         return operator != '+' && operator != '-' && operator != '*' &&
                 operator != '/' && operator != '%' && operator != '^';
     }
 
+    /**
+     * Continuously accumulates values for consecutive chain operations.
+     */
     private static int calculateRunningTotal(Scanner input, int lastResult, char operator) {
         int runningTotal = lastResult;
         String requiredInputDesc = (operator == '/' || operator == '%') ? "divisor" : operator == '^' ? "exponent" : "next number";
         do {
             int next = validateUserInput(input, requiredInputDesc);
-            runningTotal = performCalculation(runningTotal, next , operator);
+            runningTotal = performCalculation(runningTotal, next, operator);
             System.out.print("Another number (Y/N): ");
         } while (!input.nextLine().equalsIgnoreCase("n"));
         return runningTotal;
