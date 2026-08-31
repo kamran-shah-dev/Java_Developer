@@ -1,4 +1,4 @@
-package OOP;
+package OOP.AccessSpecifiers;
 
 public class NonAccessSpecifiers {
     public static void main(String[] args) {
