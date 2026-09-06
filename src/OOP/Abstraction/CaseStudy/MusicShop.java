@@ -1,8 +1,5 @@
 package OOP.Abstraction.CaseStudy;
 
-import com.sun.tools.javac.Main;
-
-import javax.lang.model.element.Name;
 
 public class MusicShop {
     public static void main(String[] args) {
@@ -86,7 +83,7 @@ class StringedInstrument extends Instrument {
 }
 
 class Guitar extends StringedInstrument implements Tunable, Maintanable {
-    private String guitarType;
+    private final String guitarType;
 
     public Guitar(String Name, int manufactureYear, int numberOfStrings, String guitarType) {
         super(Name , manufactureYear , numberOfStrings);
