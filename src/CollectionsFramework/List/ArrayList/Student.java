@@ -36,6 +36,7 @@ public class Student {
             while (true) {
                 System.out.println(
                         """
+                           \n
                            Press 1 to add a student
                            2 to view all the students
                            3 to remove a student from list
