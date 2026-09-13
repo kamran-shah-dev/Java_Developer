@@ -96,6 +96,7 @@ public class ComparatorDemo {
 
         // But java has made it easy. Lets see how
         /*
+
         Comparator<Employee> employeeComparator =
                 Comparator.comparing(Employee::getEmployeeSalary).thenComparing(Employee::getEmployeeName);
 

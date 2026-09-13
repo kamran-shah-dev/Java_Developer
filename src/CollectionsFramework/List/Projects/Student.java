@@ -1,4 +1,4 @@
-package CollectionsFramework.List.ArrayList;
+package CollectionsFramework.List.Projects;
 
 import java.util.*;
 
