@@ -13,7 +13,6 @@ public class hashCodeAndEquals {
         employeeDesignations.put(e1, "Team Lead");
         employeeDesignations.put(e2, "Reporter");
         employeeDesignations.put(e3, "Manager");
-
         System.out.println(employeeDesignations);
     }
 }
