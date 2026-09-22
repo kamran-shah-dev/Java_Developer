@@ -1,5 +1,7 @@
 package CollectionsFramework.Projects.BookAndLiabraryManagement;
 
+import com.sun.jdi.InvalidLineNumberException;
+
 import java.util.*;
 
 public class LibraryManagementSystem {
@@ -192,14 +194,25 @@ public class LibraryManagementSystem {
         }
         System.out.print("Enter Book Publication Year: ");
 
-        int publicationYear = Integer.parseInt(input.nextLine());
-        while (publicationYear == 0) {
-            System.out.println("Year cannot be zero");
-            System.out.print("Enter Publication Year Again: ");
-            publicationYear = Integer.parseInt(input.nextLine());
+        int publicationYear;
+        while (true) {
+            try {
+                publicationYear = Integer.parseInt(input.nextLine());
+                if (validYear(publicationYear)) {
+                    break;
+                } else
+                    System.out.print("Enter a a valid year between (1000 - Current Year): ");
+            } catch (NumberFormatException e) {
+                System.out.println("Not a valid year...");
+                System.out.print("Not a valid year try again: ");
+            }
         }
-
         library.add(new Book(bookTitle, bookAuthor, publicationYear));
+    }
+
+    private static boolean validYear(int publicationYear) {
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        return publicationYear >= 1000 && publicationYear <= currentYear;
     }
 
     private static boolean isValidText(String text) {
