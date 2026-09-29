@@ -1,6 +1,7 @@
 package FileHandling;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FileManagement {
@@ -26,17 +27,40 @@ public class FileManagement {
                     }
                 } else {
                     System.out.println(fileName + " is a not a valid file or directory");
-                    System.out.println("To create a file with given name press 1\n"
-                            + "To create a directory with given name press 2\n"
-                            + "To do nothing and continue, press any other key");
+                    System.out.println("""
+                            To create a file with given name press 1
+                            To create a directory with given name press 2
+                            To do nothing and continue, press any other key""");
                     if (input.nextLine().equals("1")) {
+                        String parentDirectory = file.getParent();
 
+                        File parentDir = new File(parentDirectory);
+                        if (!parentDir.exists()) {
+                            boolean isDirCreated = parentDir.mkdir();
+
+                            if (!isDirCreated) {
+                                System.out.println("Directory could not be created");
+                                continue;
+                            }
+                        }
+
+                        try {
+                            boolean isFileCreated = file.createNewFile();
+                            if (!isFileCreated) {
+                                System.out.println("File could not be created");
+                            } else {
+                                System.out.println("File created");
+                            }
+                        } catch (IOException e) {
+                            System.out.println("Could not create file" + e.getMessage());
+                        }
                     } else if (input.nextLine().equals("2")) {
-                        boolean created = file.mkdir();
-                        if (created) {
-                            System.out.println(fileName + " directory created");
+                        boolean isCreated = file.mkdir();
+
+                        if (isCreated) {
+                            System.out.println("Directory created");
                         } else {
-                            System.out.println(fileName + " directory could not be created");
+                            System.out.println("Directory could not be created");
                         }
                     }
                 }
