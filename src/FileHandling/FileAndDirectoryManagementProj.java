@@ -5,11 +5,48 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileAndDirectoryManagementProj {
+
+    public static void listContentsRecursively (File baseFile) {
+        File[] files = baseFile.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    System.out.println(file.getAbsolutePath());
+                } else {
+                    listContentsRecursively(file);
+                }
+            }
+        } else {
+            System.out.println("Directory is empty");
+        }
+    }
+
+    private static void deleteAllRecursively(File dirInstance) {
+        File[] files = dirInstance.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    String fileName = file.getName();
+                    boolean isFileDeleted = file.delete();
+                    System.out.println(isFileDeleted ? fileName + " Deleted..." :
+                            fileName + " Could not be deleted");
+                } else {
+                    deleteAllRecursively(file);
+                }
+            }
+        }
+        String fileName = dirInstance.getName();
+        boolean isDirectoryDeleted = dirInstance.delete();
+        System.out.println(isDirectoryDeleted ? fileName + " Deleted..." :
+                        fileName + " Could not be deleted");
+
+    }
+
     public static void FileManagement(File fileInstance) {
         Scanner input = new Scanner(System.in);
         System.out.println("""
-                To rename a file press 1
-                To delete a file press 2
+                To delete a file press 1
+                To rename a file press 2
                 Any other key to exit File Management
                 """);
         System.out.print("Enter your choice: ");
@@ -25,7 +62,7 @@ public class FileAndDirectoryManagementProj {
         } else if (choice.equals("2")) {
             System.out.println("Enter the new name for the file " + fileInstance.getName());
             String newFileName = input.nextLine();
-            boolean isRenamed = fileInstance.renameTo(new File(fileInstance.getPath(), newFileName));
+            boolean isRenamed = fileInstance.renameTo(new File(fileInstance.getParent(), newFileName));
             if (isRenamed) {
                 System.out.println("file renamed successfully.");
             } else {
@@ -39,34 +76,53 @@ public class FileAndDirectoryManagementProj {
     public static void DirectoryManagement(File dirInstance) {
         Scanner input = new Scanner(System.in);
         System.out.println("""
-                To rename directory press 1
+                To list all items of directory press 1
                 To delete directory press 2
+                To rename directory press 3
                 Any other key to exit directory management
                 """);
         System.out.print("Enter your choice: ");
         String choice = input.nextLine();
 
-        if (choice.equals("1")){
-            boolean isDeleted = dirInstance.delete();
-            if (isDeleted) {
-                System.out.println("Directory deleted successfully.");
-            } else {
-                System.out.println("Directory could not be deleted.");
+        switch (choice) {
+            case "1" -> {
+                System.out.println("Listing all items from directory: " + dirInstance.getName());
+                listContentsRecursively(dirInstance);
             }
-        } else if (choice.equals("2")) {
-            System.out.println("Enter the new name for the directory " + dirInstance.getName());
-            String newDirectoryName = input.nextLine();
+            case "2" -> {
+                File[] itemsInDirectory = dirInstance.listFiles();
+                if (itemsInDirectory != null && itemsInDirectory.length == 0) {
+                    boolean isDeleted = dirInstance.delete();
+                    System.out.println(isDeleted ? "Directory deleted" :
+                            "Directory could not be deleted");
+                } else {
+                    System.out.println(dirInstance.getName() + " contains these files and directories");
+                    listContentsRecursively(dirInstance);
+                    System.out.println("Do you want to delete all files and directories from " + dirInstance.getName());
+                    System.out.print("Yes or No (Y/N): ");
+                    choice = input.nextLine();
+                    if (choice.equalsIgnoreCase("yes") || choice.equalsIgnoreCase("y")) {
+                        deleteAllRecursively(dirInstance);
+                    }
+                }
 
-            boolean isRenamed = dirInstance.renameTo(new File(dirInstance.getPath(), newDirectoryName));
-            if (isRenamed) {
-                System.out.println("directory renamed successfully.");
-            } else {
-                System.out.println("directory could not be renamed.");
             }
-        } else {
-            System.out.println("Exiting directory management ...");
+            case "3" -> {
+                System.out.println("Enter the new name for the directory " + dirInstance.getName());
+                String newDirectoryName = input.nextLine();
+
+                boolean isRenamed = dirInstance.renameTo(new File(dirInstance.getParent(), newDirectoryName));
+                if (isRenamed) {
+                    System.out.println("directory renamed successfully.");
+                } else {
+                    System.out.println("directory could not be renamed.");
+                }
+            }
+            default -> System.out.println("Exiting directory management ...");
         }
     }
+
+
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -76,6 +132,7 @@ public class FileAndDirectoryManagementProj {
                     Press 1 for file and directory management
                     Press any other key to exit
                     """);
+            System.out.print("Enter your choice: ");
             String userChoice = input.nextLine();
             if (userChoice.equals("1")) {
                 System.out.print("Enter file name with path: ");
