@@ -31,7 +31,8 @@ public class FileManagement {
                             To create a file with given name press 1
                             To create a directory with given name press 2
                             To do nothing and continue, press any other key""");
-                    if (input.nextLine().equals("1")) {
+                    String choice = input.nextLine();
+                    if (choice.equals("1")) {
                         String parentDirectory = file.getParent();
 
                         File parentDir = new File(parentDirectory);
@@ -54,7 +55,7 @@ public class FileManagement {
                         } catch (IOException e) {
                             System.out.println("Could not create file" + e.getMessage());
                         }
-                    } else if (input.nextLine().equals("2")) {
+                    } else if (choice.equals("2")) {
                         boolean isCreated = file.mkdir();
 
                         if (isCreated) {
