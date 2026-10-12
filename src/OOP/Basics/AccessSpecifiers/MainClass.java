@@ -1,4 +1,4 @@
-package OOP.AccessSpecifiers;
+package OOP.Basics.AccessSpecifiers;
 
 public class MainClass {
 
