@@ -1,5 +1,6 @@
-package OOP.AnotherPackage;
-import OOP.AccessSpecifiers.MainClass;
+package OOP.Basics.AnotherPackage;
+
+import OOP.Basics.AccessSpecifiers.MainClass;
 
 public class ClassB extends MainClass {
     public static void main(String... args){
