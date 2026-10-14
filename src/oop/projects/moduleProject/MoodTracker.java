@@ -146,7 +146,8 @@ public class MoodTracker {
                                     System.out.println("Mood does not exists");
                                 }
                             } else {
-                                System.out.println("Invalid Input!!! Try Again...");
+                                System.out.println("Getting all Moods!!");
+                                moodList.forEach(System.out::println);
                             }
                         }  else {
                             System.out.println("List is empty!! Try adding some moods..");
