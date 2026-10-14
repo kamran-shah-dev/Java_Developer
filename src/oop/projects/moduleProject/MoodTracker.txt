@@ -1,0 +1,16 @@
+Mood: Happy
+Date: 12 Oct, 2024
+Time: 17:06:07
+Notes: 
+"Hello these are notes
+Next line
+Next Line
+end"
+
+Mood: Alpha
+Date: 12 Oct, 2024
+Time: 05:06:07
+Notes: 
+"Alpha Is here
+beta is not here"
+

@@ -1,5 +1,8 @@
 package oop.projects.moduleProject;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,13 +12,12 @@ import java.util.*;
 public class MoodTracker {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        boolean running = true;
 
         List<Mood> moodList = new ArrayList<>();
 
         System.out.println("== Welcome To MoodTrackerApp ==");
         System.out.println("Choose an option from menu to perform a specific tasks");
-        while (running) {
+        while (true) {
             System.out.println("a. To add a mood");
             System.out.println("d. To delete a mood");
             System.out.println("e. To edit mode notes");
@@ -27,8 +29,8 @@ public class MoodTracker {
             String option = input.nextLine();
 
             if (option.equalsIgnoreCase("exit")) {
-                running = false;
                 System.out.println("Thank You For Using Our Trip Planner");
+                break;
             }
 
             String moodName;
@@ -106,9 +108,59 @@ public class MoodTracker {
 
                     case "s" -> {
                         if (!moodList.isEmpty()) {
-                            
+                            System.out.println("To search moods by date only press 1 \nTo search mood by name" +
+                                    "date and time press 2");
+                            System.out.print("Enter your choice: ");
+                            option = input.nextLine();
+                            if (option.equals("1")) {
+                                System.out.print("Enter the date you want to search all moods for: ");
+                                LocalDate date = parseDate(input.nextLine());
+                                int moodCount = 0;
+                                for (Mood mood : moodList) {
+                                    if (mood.getDate().equals(date)) {
+                                        System.out.println(mood);
+                                        moodCount++;
+                                    }
+                                }
+                                if (moodCount == 0)
+                                    System.out.println("No moods exists for date: " + date);
+                            } else if (option.equals("2")) {
+                                System.out.print("Enter Mood Name: ");
+                                moodName = input.nextLine();
+
+                                System.out.print("Enter Mood Date and Time (format: dd MMM, yyyy  hh:mm:ss): ");
+                                moodDateTime = parseDateTime(input.nextLine());
+
+                                Mood searchedMood = null;
+                                for (Mood mood : moodList) {
+                                    if (mood.equals(new Mood(moodDateTime.toLocalDate(), moodDateTime.toLocalTime()))
+                                            && mood.getMoodName().equalsIgnoreCase(moodName)) {
+                                        searchedMood = mood;
+                                        break;
+                                    }
+                                }
+                                if (searchedMood != null) {
+                                    System.out.println("Found the mood");
+                                    System.out.println(searchedMood);
+                                } else {
+                                    System.out.println("Mood does not exists");
+                                }
+                            } else {
+                                System.out.println("Invalid Input!!! Try Again...");
+                            }
                         }  else {
                             System.out.println("List is empty!! Try adding some moods..");
+                        }
+                    }
+
+                    case "w" -> {
+                        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/oop/projects/moduleProject/MoodTracker.txt"))) {
+                            for (Mood mood : moodList) {
+                                writer.write(mood.toString());
+                                writer.newLine();
+                            }
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                     default -> System.out.println("Invalid Choice!!! Try Again");
