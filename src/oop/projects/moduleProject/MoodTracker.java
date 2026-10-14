@@ -160,6 +160,10 @@ public class MoodTracker {
                                     writer.write(mood.toString());
                                     writer.newLine();
                                 }
+                                writer.flush();
+                                // Real time logging the data in disk file before program closes
+
+                                // Try with resources auto closes the BufferedReader and Writer so no .close() call needed
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -173,7 +177,7 @@ public class MoodTracker {
                 System.out.println("Error! Invalid Date and Time Format. Please Use this Format: dd MMM, yyyy hh:mm:ss AM/PM");
             }
         }
-
+        input.close();
     }
 
     private static String getMoodNotes(Scanner input) {
