@@ -154,13 +154,17 @@ public class MoodTracker {
                     }
 
                     case "w" -> {
-                        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/oop/projects/moduleProject/MoodTracker.txt"))) {
-                            for (Mood mood : moodList) {
-                                writer.write(mood.toString());
-                                writer.newLine();
+                        if (!moodList.isEmpty()) {
+                            try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/oop/projects/moduleProject/MoodTracker.txt"))) {
+                                for (Mood mood : moodList) {
+                                    writer.write(mood.toString());
+                                    writer.newLine();
+                                }
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
                             }
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
+                        } else {
+                            System.out.println("List is empty!! Try adding some moods..");
                         }
                     }
                     default -> System.out.println("Invalid Choice!!! Try Again");
