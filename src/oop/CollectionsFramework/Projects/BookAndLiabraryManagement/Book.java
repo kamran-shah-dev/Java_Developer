@@ -1,4 +1,4 @@
-package CollectionsFramework.Projects.BookAndLiabraryManagement;
+package oop.CollectionsFramework.Projects.BookAndLiabraryManagement;
 
 import java.util.Objects;
 

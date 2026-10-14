@@ -1,6 +1,4 @@
-package CollectionsFramework.Projects.BookAndLiabraryManagement;
-
-import com.sun.jdi.InvalidLineNumberException;
+package oop.CollectionsFramework.Projects.BookAndLiabraryManagement;
 
 import java.util.*;
 
