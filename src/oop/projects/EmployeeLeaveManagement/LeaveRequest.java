@@ -1,12 +1,12 @@
 package oop.projects.EmployeeLeaveManagement;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 interface Approvable {
-    public boolean approve(String approvedBy);
+    boolean approve(String approvedBy);
     boolean deny(String deniedBy, String reason);
 }
 public abstract class LeaveRequest implements Approvable {
@@ -16,7 +16,7 @@ public abstract class LeaveRequest implements Approvable {
     protected String endDate;
     protected String status;
 
-    private final int QUALIFYING_PERIOD = 120;
+    protected final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd MMM, yyyy");
 
 
     public LeaveRequest() {
@@ -30,14 +30,78 @@ public abstract class LeaveRequest implements Approvable {
         this.status = status;
     }
 
-    abstract public boolean processApplication();
-
-    protected int getDuration(LocalDate startDate, LocalDate endDate) {
-        return (int) ChronoUnit.DAYS.between(startDate, endDate);
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public int getQUALIFYING_PERIOD() {
-        return QUALIFYING_PERIOD;
+    public int getRequestId() {
+        return requestId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    abstract public boolean processApplication();
+
+    protected int getDuration() {
+        LocalDate sDate = LocalDate.parse(startDate, DATE_TIME_FORMATTER);
+        LocalDate eDate = LocalDate.parse(endDate, DATE_TIME_FORMATTER);
+        return (int) ChronoUnit.DAYS.between(sDate, eDate);
+    }
+
+    @Override
+    public String toString() {
+        return "LeaveRequest{" +
+                "requestId=" + requestId +
+                ", employee=" + employee +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    private ArrayList<StatusChange> statusHistory = new ArrayList<>();
+
+    class StatusChange {
+        private String oldStatus;
+        private String newStatus;
+        private String changeDate;
+        private String changedBy;
+
+        public StatusChange(String oldStatus, String newStatus, String changeDate, String changedBy) {
+            this.oldStatus = oldStatus;
+            this.newStatus = newStatus;
+            this.changeDate = changeDate;
+            this.changedBy = changedBy;
+        }
+
+        @Override
+        public String toString() {
+            return "StatusChange{" +
+                    "oldStatus='" + oldStatus + '\'' +
+                    ", newStatus='" + newStatus + '\'' +
+                    ", changeDate='" + changeDate + '\'' +
+                    ", changedBy='" + changedBy + '\'' +
+                    '}';
+        }
+    }
+
+    public void changeStatus(String newStatus, String changeBy) {
+        String oldStatus = this.status;
+        this.status = newStatus;
+
+        statusHistory.add(new StatusChange(oldStatus, newStatus, LocalDate.now().toString(), changeBy));
+    }
+
+    public void displayStatusHistory() {
+        if (statusHistory.isEmpty()) {
+            System.out.println("Status Change History is Emptry");
+        } else {
+            for (StatusChange status : statusHistory) {
+                System.out.println(status);
+            }
+        }
     }
 }
 
@@ -62,8 +126,7 @@ class SickLeaveRequest extends LeaveRequest {
     @Override
     public boolean processApplication() {
 
-        if (!medicalCertificateProvided && getDuration(LocalDate.parse(startDate, DateTimeFormatter.ofPattern("dddd MMM, yyyy")),
-                LocalDate.parse(endDate, DateTimeFormatter.ofPattern("dddd MMM, yyyy"))) > 2) {
+        if (!medicalCertificateProvided && getDuration() > 2) {
             System.out.println("Sick Leave cannot be granted for more than two days without a medical certificate");
             return false;
         }
@@ -74,6 +137,7 @@ class SickLeaveRequest extends LeaveRequest {
 
 class VacationLeaveRequest extends LeaveRequest {
     private int activeWorkDays;
+    private final int QUALIFYING_PERIOD = 120;
 
     public VacationLeaveRequest(int requestId, Employee employee, String startDate, String endDate, String status, int activeWorkDays) {
         super(requestId, employee, startDate, endDate, status);
@@ -92,7 +156,7 @@ class VacationLeaveRequest extends LeaveRequest {
 
     @Override
     public boolean processApplication() {
-        if (activeWorkDays < getQUALIFYING_PERIOD()) {
+        if (activeWorkDays < QUALIFYING_PERIOD) {
             System.out.println("You do not quality for vacation leave. You were not regular for 120 days");
             return false;
         }
@@ -121,8 +185,7 @@ class MaternityLeaveRequest extends LeaveRequest {
 
     @Override
     public boolean processApplication() {
-        if (!pregnancyOrDeliveryReportProvided && getDuration(LocalDate.parse(startDate, DateTimeFormatter.ofPattern("dddd MMM, yyyy")),
-                LocalDate.parse(endDate, DateTimeFormatter.ofPattern("dddd MMM, yyyy"))) > 4) {
+        if (!pregnancyOrDeliveryReportProvided && getDuration() > 4) {
             System.out.println("Maternity Leave cannot be granted for more than 4 days without a proof submitted");
             return false;
         }
