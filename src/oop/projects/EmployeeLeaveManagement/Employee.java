@@ -6,6 +6,7 @@ public class Employee {
     private String name;
     private int id;
     private String department;
+    private ArrayList<LeaveRequest> leaveHistory = new ArrayList<>();
 
     public Employee(String name, int id, String department) {
         this.name = name;
@@ -24,8 +25,6 @@ public class Employee {
     public String getDepartment() {
         return department;
     }
-
-    private ArrayList<LeaveRequest> leaveHistory = new ArrayList<>();
 
     public void addHistory(LeaveRequest request) {
         leaveHistory.add(request);
