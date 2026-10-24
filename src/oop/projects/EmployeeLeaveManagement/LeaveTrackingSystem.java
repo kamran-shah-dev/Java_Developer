@@ -1,5 +1,6 @@
 package oop.projects.EmployeeLeaveManagement;
 
+import java.io.*;
 import java.util.*;
 
 public class LeaveTrackingSystem {
@@ -89,7 +90,28 @@ public class LeaveTrackingSystem {
     public static void main(String[] args) {
         LeaveTrackingSystem leaveTrackingSystem = new LeaveTrackingSystem();
 
-                Employee[] emp = {
+        File employeeData = new File("src/oop/projects/EmployeeLeaveManagement/files/employees.csv");
+        File leaveRequestData = new File("src/oop/projects/EmployeeLeaveManagement/files/leaverequests.csv");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(employeeData))) {
+            String data = reader.readLine();
+            while (data != null) {
+                System.out.println(data);
+                data = reader.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println("File not found.. Try Again!! " + e.getMessage());
+        }
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(employeeData));
+            writer.write("11, Afnan Shah, DevOps");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        /*
+            Employee[] emp = {
                         new Employee("Ayesha Khan",   1,  "HR"),
                         new Employee("Bilal Ahmed",   2,  "Engineering"),
                         new Employee("Sana Malik",    3,  "Finance"),
@@ -162,6 +184,7 @@ public class LeaveTrackingSystem {
                 System.out.println("\n===== SUMMARY =====");
                 System.out.println("Total: " + requests.size() + " | Approved: " + approved + " | Rejected: " + rejected);
             }
+        * */
 
-
+    }
 }
