@@ -1,0 +1,16 @@
+requestId,employeeId,type,startDate,endDate,status,extra
+101,2,SICK,"10 Jan, 2025","11 Jan, 2025",Pending,false
+102,4,SICK,"14 Feb, 2025","18 Feb, 2025",Pending,false
+103,6,SICK,"03 Mar, 2025","07 Mar, 2025",Pending,true
+104,8,SICK,"20 Apr, 2025","21 Apr, 2025",Pending,false
+105,1,SICK,"05 May, 2025","09 May, 2025",Pending,false
+106,3,VACATION,"01 Jun, 2025","15 Jun, 2025",Pending,150
+107,5,VACATION,"10 Jul, 2025","20 Jul, 2025",Pending,90
+108,10,VACATION,"01 Aug, 2025","10 Aug, 2025",Pending,200
+109,2,VACATION,"01 Dec, 2025","10 Dec, 2025",Pending,300
+110,9,VACATION,"15 Oct, 2025","25 Oct, 2025",Pending,60
+111,6,VACATION,"20 Dec, 2025","31 Dec, 2025",Pending,130
+112,7,MATERNITY,"01 Feb, 2025","30 Apr, 2025",Pending,true
+113,9,MATERNITY,"15 Nov, 2025","15 Dec, 2025",Pending,false
+114,5,MATERNITY,"01 Mar, 2025","03 Mar, 2025",Pending,false
+115,3,MATERNITY,"01 Oct, 2025","31 Dec, 2025",Pending,true
