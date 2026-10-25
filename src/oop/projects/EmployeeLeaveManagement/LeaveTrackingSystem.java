@@ -50,9 +50,20 @@ public class LeaveTrackingSystem {
         return false;
     }
 
+    public void displayEmployees() {
+        if (employeeDirectory.isEmpty()) {
+            System.out.println("No employees in the directory");
+            return;
+        }
+        for (Employee employee : employeeDirectory.values()) {
+            System.out.println(employee);
+        }
+    }
+
     // Leave request operations
     public void addLeaveRequest(LeaveRequest request) {
         requestDirectory.put(request.getRequestId(), request);
+        allLeaveRequests.add(request);
     }
 
     public LeaveRequest getLeaveRequest(int id) {
@@ -69,6 +80,16 @@ public class LeaveTrackingSystem {
             return true;
         }
         return false;
+    }
+
+    public void displayLeaveRequests() {
+        if (requestDirectory.isEmpty()) {
+            System.out.println("No leave requests in the directory");
+            return;
+        }
+        for (LeaveRequest request : requestDirectory.values()) {
+            System.out.println(request);
+        }
     }
 
     // Pending Request (Queue) Operations
@@ -93,22 +114,14 @@ public class LeaveTrackingSystem {
         File employeeData = new File("src/oop/projects/EmployeeLeaveManagement/files/employees.csv");
         File leaveRequestData = new File("src/oop/projects/EmployeeLeaveManagement/files/leaverequests.csv");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(employeeData))) {
-            String data = reader.readLine();
-            while (data != null) {
-                System.out.println(data);
-                data = reader.readLine();
-            }
-        } catch (IOException e) {
-            System.out.println("File not found.. Try Again!! " + e.getMessage());
-        }
+        // Get employee data in the employeeDirectory Hashmap
 
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(employeeData));
-            writer.write("11, Afnan Shah, DevOps");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        getDataFromFilesIntoCollection(employeeData, leaveTrackingSystem, true);
+        getDataFromFilesIntoCollection(leaveRequestData, leaveTrackingSystem, false);
+        leaveTrackingSystem.displayEmployees();
+        leaveTrackingSystem.displayLeaveRequests();
+        leaveTrackingSystem.updateDepartmentsWithPendingRequests();
+        leaveTrackingSystem.hasDepartmentPendingRequests("");
 
         /*
             Employee[] emp = {
@@ -186,5 +199,47 @@ public class LeaveTrackingSystem {
             }
         * */
 
+    }
+
+    private static void getDataFromFilesIntoCollection(File fileData, LeaveTrackingSystem leaveTrackingSystem, boolean isEmployeeData) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileData))) {
+            String data = reader.readLine();
+            if (isEmployeeData) {
+                while ((data = reader.readLine()) != null) {
+                    String[] dataParts = data.split(",");
+                    int id = Integer.parseInt(dataParts[0].trim());
+                    String name = dataParts[1].trim();
+                    String department = dataParts[2].trim();
+                    leaveTrackingSystem.addEmployee(new Employee(name, id, department));
+                }
+            } else {
+                while ((data = reader.readLine()) != null) {
+                    String[] dataParts = data.split(",");
+                    int reqId = Integer.parseInt(dataParts[0].trim());
+                    int empId = Integer.parseInt(dataParts[1].trim());
+                    String reqType = dataParts[2].trim();
+                    String startDate = dataParts[3].trim().concat(", ").concat(dataParts[4].trim());
+                    startDate = startDate.replaceAll("\"" , "");
+                    String endDate = dataParts[5].trim().concat(", ").concat(dataParts[6].trim());
+                    endDate = endDate.replaceAll("\"" , "");
+                    String status = dataParts[7].trim();
+                    String proofOrActiveWorkDays = dataParts[8].trim();
+
+                    Employee employee = leaveTrackingSystem.getEmployee(empId);
+                    if (reqType.equals("SICK")) {
+                        LeaveRequest sickLeaveRequest = new SickLeaveRequest(reqId, employee, startDate, endDate, status, proofOrActiveWorkDays.equals("TRUE"));
+                        leaveTrackingSystem.addLeaveRequest(sickLeaveRequest);
+                    } else if (reqType.equals("MATERNITY")) {
+                        LeaveRequest maternityLeaveRequest = new MaternityLeaveRequest(reqId, employee, startDate, endDate, status, proofOrActiveWorkDays.equals("TRUE"));
+                        leaveTrackingSystem.addLeaveRequest(maternityLeaveRequest);
+                    } else {
+                        LeaveRequest vacationLeaveRequest = new VacationLeaveRequest(reqId, employee, startDate, endDate, status, Integer.parseInt(proofOrActiveWorkDays.trim()));
+                        leaveTrackingSystem.addLeaveRequest(vacationLeaveRequest);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("File not found.. Try Again!! " + e.getMessage());
+        }
     }
 }
