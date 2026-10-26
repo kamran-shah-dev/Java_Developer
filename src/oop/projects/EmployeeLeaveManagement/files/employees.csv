@@ -1,11 +1,11 @@
-id,name,department
-1,Ayesha Khan,HR
-2,Bilal Ahmed,Engineering
-3,Sana Malik,Finance
-4,Usman Tariq,Engineering
-5,Fatima Noor,Marketing
-6,Hamza Ali,Sales
-7,Zainab Raza,HR
-8,Imran Sheikh,IT
-9,Hira Baloch,Finance
-10,Daniyal Shah,Operations
+id,name,department,email,leavebalance
+1,Ayesha Khan,HR,aysha@company.com,10
+2,Bilal Ahmed,Engineering,bilal@company.com,20
+3,Sana Malik,Finance,sana@company.com,34
+4,Usman Tariq,Engineering,usman@company.com,21
+5,Fatima Noor,Marketing,fatima@company.com,5
+6,Hamza Ali,Sales,hamza@company.com,6
+7,Zainab Raza,HR,zainab@company.com,8
+8,Imran Sheikh,IT,imrah@company.com,10
+9,Hira Baloch,Finance,hira@company.com,11
+10,Daniyal Shah,Operations,daniyal@company.com,14
