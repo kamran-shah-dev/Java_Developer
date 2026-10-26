@@ -99,6 +99,7 @@ public class LeaveTrackingSystem {
             return;
         for (LeaveRequest req : allLeaveRequests) {
             if (req.getStatus().equals("Pending")) {
+                pendingRequests.offer(req);
                 departmentsWithPendingRequests.add(req.getEmployee().getDepartment());
             }
         }
@@ -139,7 +140,9 @@ public class LeaveTrackingSystem {
                     int id = Integer.parseInt(dataParts[0].trim());
                     String name = dataParts[1].trim();
                     String department = dataParts[2].trim();
-                    leaveTrackingSystem.addEmployee(new Employee(name, id, department));
+                    String email = dataParts[3].trim();
+                    int leaveBalance = Integer.parseInt(dataParts[4].trim());
+                    leaveTrackingSystem.addEmployee(new Employee(name, id, department, email, leaveBalance));
                 }
             } else {
                 while ((data = reader.readLine()) != null) {
@@ -169,6 +172,28 @@ public class LeaveTrackingSystem {
             }
         } catch (IOException e) {
             System.out.println("File not found.. Try Again!! " + e.getMessage());
+        }
+    }
+
+    public void saveEmployeeData(File employeeDataFile) {
+        try (FileWriter writer = new FileWriter(employeeDataFile)) {
+            // Write header
+            writer.write("ID,Name,Department,Email,LeaveBalance\n");
+
+            // Write each employee
+            for (Employee employee : employeeDirectory.values()) {
+                writer.write(
+                        employee.getId() + "," +
+                                employee.getName() + "," +
+                                employee.getDepartment() + "," +
+                                employee.getEmployeeEmail() + "," +
+                                employee.getLeaveBalance() + "\n"
+                );
+            }
+
+            System.out.println("Employee data saved successfully");
+        } catch (IOException e) {
+            System.out.println("Error saving employee data: " + e.getMessage());
         }
     }
 }
