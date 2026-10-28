@@ -135,7 +135,16 @@ public abstract class LeaveRequest implements Approvable {
      */
     @Override
     public boolean approve(String approvedBy) {
-        return false;
+        if (!status.equals(PENDING)) {
+            System.out.println("Request " + requestId + " is already " + status);
+            return false;
+        }
+        if (!processApplication()) {
+            System.out.println("Request " + requestId + "fails the eligibility criteria");
+            return false;
+        }
+        changeStatus(APPROVED, approvedBy);
+        return true;
     }
 
     /**
@@ -152,7 +161,13 @@ public abstract class LeaveRequest implements Approvable {
      */
     @Override
     public boolean deny(String deniedBy, String reason) {
-        return false;
+        if (!status.equals(PENDING)) {
+            System.out.println("Request " + requestId + " is already " + status);
+            return false;
+        }
+        System.out.println("Request " + requestId + " is denied by " + deniedBy + " due to " + reason);
+        changeStatus(REJECTED, deniedBy);
+        return true;
     }
 
     /**
