@@ -1,0 +1,5 @@
+in leaveRequest.java i made a design mistake that was keeping the same approve and deny in all subclasses of LeaveRequest.
+It could be simplified by just keeping approve and deny in parent LeaveRequest class and keep the processApplication method in
+subclasses.
+Reason: Because, approve and deny will call process application as a guard and approve/deny are actions taken by a person (HR)
+So it will be redundant to implement these classes in all subclasses of leaveRequest.
