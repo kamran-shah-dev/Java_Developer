@@ -123,6 +123,24 @@ public abstract class LeaveRequest implements Approvable {
     }
 
     /**
+     * Returns the start date of this request.
+     *
+     * @return the startDate string
+     */
+    public String getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * Returns the end date of this request.
+     *
+     * @return the endDate string
+     */
+    public String getEndDate() {
+        return endDate;
+    }
+
+    /**
      * Approves this request on behalf of a reviewer.
      * <p>
      * Contract: a request that is still pending is moved to the approved
@@ -178,6 +196,11 @@ public abstract class LeaveRequest implements Approvable {
      * @return {@code true} if the request meets the rules, {@code false} otherwise
      */
     abstract public boolean processApplication();
+
+    /**
+     * Implementations returns the field specific to request type.
+     */
+    abstract public String proofOrActiveWorkDays();
 
     /**
      * Calculates the length of the leave in days.
@@ -309,6 +332,11 @@ class SickLeaveRequest extends LeaveRequest {
         this.medicalCertificateProvided = medicalCertificateProvided;
     }
 
+    @Override
+    public String proofOrActiveWorkDays() {
+        return Boolean.toString(medicalCertificateProvided);
+    }
+
     /**
      * Checks the sick leave rule: no certificate means a maximum duration of 2 days.
      *
@@ -350,6 +378,20 @@ class VacationLeaveRequest extends LeaveRequest {
     public VacationLeaveRequest(int requestId, Employee employee, String startDate, String endDate, String status, int activeWorkDays) {
         super(requestId, employee, startDate, endDate, status);
         this.activeWorkDays = activeWorkDays;
+    }
+
+    @Override
+    public String proofOrActiveWorkDays() {
+        return Integer.toString(activeWorkDays);
+    }
+
+    /**
+     * Returns the active work days of an employee.
+     *
+     * @return the active work days
+     */
+    public int getActiveWorkDays() {
+        return activeWorkDays;
     }
 
     /**
@@ -394,6 +436,11 @@ class MaternityLeaveRequest extends LeaveRequest {
     public MaternityLeaveRequest(int requestId, Employee employee, String startDate, String endDate, String status, boolean pregnancyOrDeliveryReportProvided) {
         super(requestId, employee, startDate, endDate, status);
         this.pregnancyOrDeliveryReportProvided = pregnancyOrDeliveryReportProvided;
+    }
+
+    @Override
+    public String proofOrActiveWorkDays() {
+        return Boolean.toString(pregnancyOrDeliveryReportProvided);
     }
 
     /**
