@@ -1,5 +1,32 @@
+Scenario 1:
+
 in leaveRequest.java i made a design mistake that was keeping the same approve and deny in all subclasses of LeaveRequest.
 It could be simplified by just keeping approve and deny in parent LeaveRequest class and keep the processApplication method in
 subclasses.
 Reason: Because, approve and deny will call process application as a guard and approve/deny are actions taken by a person (HR)
 So it will be redundant to implement these classes in all subclasses of leaveRequest.
+
+______________________________________________________________________________________________________________________________
+
+Scenario 2:
+
+In OOP, a parent class reference is designed to interact with features defined at the parent level (or shared across all subclasses).
+If a function or getter exists only in a specific subclass, forcing the parent class to act as a middleman defeats the purpose of clean
+inheritance and can lead to tight coupling, maintenance nightmares, and compilation errors in statically typed languages
+(like Java, C++, or C#) where the parent doesn't even know about subclass-specific methods.
+
+Depending on what you are trying to achieve, here are the standard, idiomatic ways to solve this problem:
+
+1. Polymorphism (Method Overriding / Abstract Methods) — The Best Approach
+If all three subclasses have this function (even if they return different values or behave differently),
+you should define that function in the parent class as an abstract method (or provide a default implementation),
+and then override it in each subclass.
+
+When you call that method on a parent reference, the runtime automatically figures out which subclass object is actually stored
+there and executes the correct subclass version (this is called dynamic dispatch).
+
+This was a scenario, so I added an abstract method in parent class and I @Override that in subclasses with specific implementation, this way I did
+not have to make the parent class middleman for 3 different data returns.
+
+______________________________________________________________________________________________________________________________
+
