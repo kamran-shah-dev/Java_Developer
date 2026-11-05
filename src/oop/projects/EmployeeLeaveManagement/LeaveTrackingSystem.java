@@ -15,15 +15,6 @@ public class LeaveTrackingSystem {
     private final Queue<LeaveRequest> pendingRequests = new LinkedList<>();
 
     // Pending Request operations (Queue Operations)
-    public void updatePendingRequests() {
-        if (allLeaveRequests.isEmpty())
-            return;
-        for (LeaveRequest req : allLeaveRequests) {
-            if (req.getStatus().equals("Pending")) {
-                pendingRequests.offer(req);
-            }
-        }
-    }
 
     public LeaveRequest removeFromPendingRequests() {
         if (allLeaveRequests.isEmpty()) {
@@ -77,14 +68,6 @@ public class LeaveTrackingSystem {
         return e;
     }
 
-    public boolean removeLeaveRequest(int id) {
-        if (requestDirectory.containsKey(id)) {
-            requestDirectory.remove(id);
-            return true;
-        }
-        return false;
-    }
-
     public void displayLeaveRequests() {
         if (requestDirectory.isEmpty()) {
             System.out.println("No leave requests in the directory");
@@ -92,19 +75,6 @@ public class LeaveTrackingSystem {
         }
         for (LeaveRequest request : requestDirectory.values()) {
             System.out.println(request);
-        }
-    }
-
-    // Pending Request (Queue) Operations
-
-    public void updateDepartmentsWithPendingRequests () {
-        if (allLeaveRequests.isEmpty())
-            return;
-        for (LeaveRequest req : allLeaveRequests) {
-            if (req.getStatus().equals("Pending")) {
-                pendingRequests.offer(req);
-                departmentsWithPendingRequests.add(req.getEmployee().getDepartment());
-            }
         }
     }
 
@@ -255,8 +225,11 @@ public class LeaveTrackingSystem {
                 return false;
             }
         }
-        system.removeEmployee(id);
-        System.out.println("Employee removed.");
+        if (system.removeEmployee(id)) {
+            System.out.println("Employee removed.");
+        } else {
+            System.out.println("Employee could not be removed.");
+        }
         return true;
     }
 
