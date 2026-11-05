@@ -124,6 +124,7 @@ public class LeaveTrackingSystem {
         try (Scanner input = new Scanner(System.in)) {
             boolean isRunning = true;
             while (isRunning) {
+                printMenu();
                 String option = input.nextLine();
                 switch (option) {
                     case "1":
@@ -135,31 +136,45 @@ public class LeaveTrackingSystem {
                         leaveTrackingSystem.displayLeaveRequests();
                         break;
                     case "3":
-                        System.out.print("Enter the employee employee ID: ");
-                        int employeeId = Integer.parseInt(input.nextLine());
-                        Employee employee = leaveTrackingSystem.getEmployee(employeeId);
-                        if (employee == null) {
-                            System.out.println("No employee found with this employeeId: " + employeeId);
-                        } else {
-                            System.out.println(employee);
-                        }
-                        break;
-                    case "4":
                         findEmployee(leaveTrackingSystem, input);
                         break;
+                    case "4":
+                        findLeaveRequest(leaveTrackingSystem, input);
+                        break;
                     case "5":
-                        System.out.println("=========== Adding An Employee ==========");
-                        System.out.print("Enter employee name: ");
+                        if(addEmployeeFromInput(leaveTrackingSystem, input)) {
+                            System.out.println("Employee Added.");
+                        } else {
+                            System.out.println("Employee Could Not Be Added");
+                        }
                         break;
                     case "6":
+                        if(removeEmployeeFromInput(leaveTrackingSystem, input)) {
+                            System.out.println("Employee Added.");
+                        } else {
+                            System.out.println("Employee Could Not Be Added");
+                        }
                         break;
                     case "7":
+                        if(submitLeaveRequest(leaveTrackingSystem, input)) {
+                            System.out.println("Leave Requested Submitted. ");
+                        } else {
+                            System.out.println("Leave Request Could Not Be Submitted");
+                        }
                         break;
                     case "8":
+                        if(reviewNextPendingRequest(leaveTrackingSystem, input)) {
+                            System.out.println("Employee Added.");
+                        } else {
+                            System.out.println("Employee Could Not Be Added");
+                        }
                         break;
                     case "9":
+                        checkDepartmentPendingRequests(leaveTrackingSystem, input);
                         break;
                     case "10":
+                        leaveTrackingSystem.saveEmployeeData(employeeData);
+                        leaveTrackingSystem.saveLeaveRequestData(leaveRequestData);
                         break;
                     case "0":
                         isRunning = false;
